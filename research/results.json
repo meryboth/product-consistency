@@ -1952,5 +1952,2168 @@
       "baseline_gate": "review",
       "worst_colour_part": "dark"
     }
+  },
+  "phase2": {
+    "n_images": 180,
+    "n_generations": 90,
+    "gate_verdicts": {
+      "full/final": {
+        "publish": 18,
+        "review": 12
+      },
+      "mid/final": {
+        "publish": 23,
+        "review": 7
+      },
+      "loose/final": {
+        "publish": 18,
+        "review": 12
+      },
+      "full/raw": {
+        "publish": 18,
+        "review": 12
+      },
+      "mid/raw": {
+        "publish": 23,
+        "review": 7
+      },
+      "loose/raw": {
+        "publish": 18,
+        "review": 12
+      }
+    },
+    "gate_publish": {
+      "full_final": {
+        "n": 18,
+        "of": 30
+      },
+      "mid_final": {
+        "n": 23,
+        "of": 30
+      },
+      "loose_final": {
+        "n": 18,
+        "of": 30
+      },
+      "full_raw": {
+        "n": 18,
+        "of": 30
+      },
+      "mid_raw": {
+        "n": 23,
+        "of": 30
+      },
+      "loose_raw": {
+        "n": 18,
+        "of": 30
+      }
+    },
+    "per_case": {
+      "lumen": {
+        "full/final": {
+          "edge_precision": 0.9437,
+          "edge_recall": 0.9173,
+          "presence_min": 0.872,
+          "colour_v1_median": 13.2,
+          "cer_primary_worst": null,
+          "gate_colour": 5.5,
+          "gate_parts": 0.0,
+          "n": 10
+        },
+        "mid/final": {
+          "edge_precision": 0.8589,
+          "edge_recall": 0.9102,
+          "presence_min": 0.87,
+          "colour_v1_median": 15.68,
+          "cer_primary_worst": null,
+          "gate_colour": 4.4,
+          "gate_parts": 0.1,
+          "n": 10
+        },
+        "loose/final": {
+          "edge_precision": 0.7734,
+          "edge_recall": 0.9009,
+          "presence_min": 0.87,
+          "colour_v1_median": 28.12,
+          "cer_primary_worst": null,
+          "gate_colour": 4.9,
+          "gate_parts": 0.1,
+          "n": 10
+        },
+        "full/raw": {
+          "edge_precision": 0.8908,
+          "edge_recall": 0.7087,
+          "presence_min": 0.558,
+          "colour_v1_median": 18.83,
+          "cer_primary_worst": null,
+          "gate_colour": 5.5,
+          "gate_parts": 0.0,
+          "n": 10
+        },
+        "mid/raw": {
+          "edge_precision": 0.7253,
+          "edge_recall": 0.701,
+          "presence_min": 0.25,
+          "colour_v1_median": 23.4,
+          "cer_primary_worst": null,
+          "gate_colour": 4.4,
+          "gate_parts": 0.1,
+          "n": 10
+        },
+        "loose/raw": {
+          "edge_precision": 0.5934,
+          "edge_recall": 0.6901,
+          "presence_min": 0.001,
+          "colour_v1_median": 37.51,
+          "cer_primary_worst": null,
+          "gate_colour": 4.9,
+          "gate_parts": 0.1,
+          "n": 10
+        }
+      },
+      "field16": {
+        "full/final": {
+          "edge_precision": 0.8955,
+          "edge_recall": 0.9416,
+          "presence_min": 0.68,
+          "colour_v1_median": 16.56,
+          "cer_primary_worst": null,
+          "gate_colour": 6.4,
+          "gate_parts": 0.1,
+          "n": 10
+        },
+        "mid/final": {
+          "edge_precision": 0.8356,
+          "edge_recall": 0.9368,
+          "presence_min": 0.68,
+          "colour_v1_median": 15.82,
+          "cer_primary_worst": null,
+          "gate_colour": 4.6,
+          "gate_parts": 0.3,
+          "n": 10
+        },
+        "loose/final": {
+          "edge_precision": 0.7431,
+          "edge_recall": 0.9115,
+          "presence_min": 0.686,
+          "colour_v1_median": 18.16,
+          "cer_primary_worst": null,
+          "gate_colour": 5.3,
+          "gate_parts": 0.3,
+          "n": 10
+        },
+        "full/raw": {
+          "edge_precision": 0.8821,
+          "edge_recall": 0.84,
+          "presence_min": 0.55,
+          "colour_v1_median": 20.38,
+          "cer_primary_worst": null,
+          "gate_colour": 6.4,
+          "gate_parts": 0.1,
+          "n": 10
+        },
+        "mid/raw": {
+          "edge_precision": 0.7651,
+          "edge_recall": 0.8155,
+          "presence_min": 0.204,
+          "colour_v1_median": 24.23,
+          "cer_primary_worst": null,
+          "gate_colour": 4.6,
+          "gate_parts": 0.3,
+          "n": 10
+        },
+        "loose/raw": {
+          "edge_precision": 0.6588,
+          "edge_recall": 0.776,
+          "presence_min": 0.009,
+          "colour_v1_median": 23.41,
+          "cer_primary_worst": null,
+          "gate_colour": 5.3,
+          "gate_parts": 0.3,
+          "n": 10
+        }
+      },
+      "vela": {
+        "full/final": {
+          "edge_precision": 0.7546,
+          "edge_recall": 0.8868,
+          "presence_min": 0.94,
+          "colour_v1_median": 5.0,
+          "cer_primary_worst": 0.0,
+          "gate_colour": 3.8,
+          "gate_parts": 0.4,
+          "n": 10
+        },
+        "mid/final": {
+          "edge_precision": 0.7438,
+          "edge_recall": 0.8914,
+          "presence_min": 0.941,
+          "colour_v1_median": 5.18,
+          "cer_primary_worst": 0.0,
+          "gate_colour": 4.4,
+          "gate_parts": 0.6,
+          "n": 10
+        },
+        "loose/final": {
+          "edge_precision": 0.795,
+          "edge_recall": 0.8789,
+          "presence_min": 0.922,
+          "colour_v1_median": 4.76,
+          "cer_primary_worst": 0.0,
+          "gate_colour": 4.5,
+          "gate_parts": 0.6,
+          "n": 10
+        },
+        "full/raw": {
+          "edge_precision": 0.7361,
+          "edge_recall": 0.6638,
+          "presence_min": 0.594,
+          "colour_v1_median": 5.58,
+          "cer_primary_worst": 0.625,
+          "gate_colour": 3.8,
+          "gate_parts": 0.4,
+          "n": 10
+        },
+        "mid/raw": {
+          "edge_precision": 0.4998,
+          "edge_recall": 0.4733,
+          "presence_min": 0.6,
+          "colour_v1_median": 8.3,
+          "cer_primary_worst": 0.625,
+          "gate_colour": 4.4,
+          "gate_parts": 0.6,
+          "n": 10
+        },
+        "loose/raw": {
+          "edge_precision": 0.373,
+          "edge_recall": 0.5827,
+          "presence_min": 0.463,
+          "colour_v1_median": 7.07,
+          "cer_primary_worst": 0.6,
+          "gate_colour": 4.5,
+          "gate_parts": 0.6,
+          "n": 10
+        }
+      }
+    },
+    "summary": {
+      "n_runs": 180,
+      "n_ok": 180,
+      "n_not_ok": 0,
+      "not_ok": [],
+      "directions": {
+        "cer_primary_worst": "down",
+        "colour_v1_median": "down",
+        "edge_precision": "up",
+        "edge_recall": "up",
+        "gate_colour": "down",
+        "gate_parts": "down",
+        "presence_min": "up"
+      },
+      "conditions": {
+        "full/final": {
+          "n": 30,
+          "summary": {
+            "cer_primary_worst": {
+              "n": 10,
+              "median": 0.0,
+              "min": 0.0,
+              "max": 0.0,
+              "q1": 0.0,
+              "q3": 0.0,
+              "mean": 0.0
+            },
+            "colour_v1_median": {
+              "n": 30,
+              "median": 12.219999999999999,
+              "min": 3.27,
+              "max": 27.79,
+              "q1": 5.9125,
+              "q3": 16.7025,
+              "mean": 12.026
+            },
+            "edge_precision": {
+              "n": 30,
+              "median": 0.8976500000000001,
+              "min": 0.5596,
+              "max": 0.9857,
+              "q1": 0.833725,
+              "q3": 0.948975,
+              "mean": 0.8621133333333333
+            },
+            "edge_recall": {
+              "n": 30,
+              "median": 0.91435,
+              "min": 0.7813,
+              "max": 0.9661,
+              "q1": 0.8422000000000001,
+              "q3": 0.9417500000000001,
+              "mean": 0.89309
+            },
+            "gate_colour": {
+              "n": 30,
+              "median": 4.0,
+              "min": 0.5,
+              "max": 7.2,
+              "q1": 2.525,
+              "q3": 6.199999999999999,
+              "mean": 4.069999999999999
+            },
+            "gate_parts": {
+              "n": 30,
+              "median": 0.0,
+              "min": 0.0,
+              "max": 2.0,
+              "q1": 0.0,
+              "q3": 0.4,
+              "mean": 0.36666666666666664
+            },
+            "presence_min": {
+              "n": 30,
+              "median": 0.8354999999999999,
+              "min": 0.0,
+              "max": 0.967,
+              "q1": 0.68,
+              "q3": 0.87775,
+              "mean": 0.7613333333333333
+            }
+          },
+          "by_case": {
+            "field16": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 16.384999999999998,
+                "min": 11.65,
+                "max": 18.56,
+                "q1": 15.1725,
+                "q3": 17.35,
+                "mean": 15.850999999999999
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.8907499999999999,
+                "min": 0.8305,
+                "max": 0.9776,
+                "q1": 0.8633,
+                "q3": 0.9475,
+                "mean": 0.90029
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.9405,
+                "min": 0.9056,
+                "max": 0.9661,
+                "q1": 0.93125,
+                "q3": 0.9490750000000001,
+                "mean": 0.93964
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 6.35,
+                "min": 0.5,
+                "max": 7.2,
+                "q1": 1.9,
+                "q3": 6.574999999999999,
+                "mean": 4.54
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.05,
+                "min": 0.0,
+                "max": 0.4,
+                "q1": 0.0,
+                "q3": 0.27499999999999997,
+                "mean": 0.14
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.68,
+                "min": 0.0,
+                "max": 0.733,
+                "q1": 0.67325,
+                "q3": 0.7172499999999999,
+                "mean": 0.6258
+              }
+            },
+            "lumen": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 12.78,
+                "min": 3.9,
+                "max": 27.79,
+                "q1": 12.035,
+                "q3": 19.645,
+                "mean": 14.928999999999998
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.9397,
+                "min": 0.846,
+                "max": 0.9857,
+                "q1": 0.929075,
+                "q3": 0.96965,
+                "mean": 0.9362999999999999
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.89185,
+                "min": 0.7828,
+                "max": 0.9495,
+                "q1": 0.8051750000000001,
+                "q3": 0.943675,
+                "mean": 0.87644
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.85,
+                "min": 0.7,
+                "max": 6.4,
+                "q1": 1.3499999999999999,
+                "q3": 5.7749999999999995,
+                "mean": 3.8600000000000003
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.0,
+                "min": 0.0,
+                "max": 1.7,
+                "q1": 0.0,
+                "q3": 0.32500000000000007,
+                "mean": 0.33
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.871,
+                "min": 0.486,
+                "max": 0.88,
+                "q1": 0.85575,
+                "q3": 0.87575,
+                "mean": 0.8220000000000001
+              }
+            },
+            "vela": {
+              "cer_primary_worst": {
+                "n": 10,
+                "median": 0.0,
+                "min": 0.0,
+                "max": 0.0,
+                "q1": 0.0,
+                "q3": 0.0,
+                "mean": 0.0
+              },
+              "colour_v1_median": {
+                "n": 10,
+                "median": 4.9350000000000005,
+                "min": 3.27,
+                "max": 7.96,
+                "q1": 4.0425,
+                "q3": 6.0375,
+                "mean": 5.298
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.7404,
+                "min": 0.5596,
+                "max": 0.9497,
+                "q1": 0.6137,
+                "q3": 0.9059750000000001,
+                "mean": 0.7497499999999999
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.8687,
+                "min": 0.7813,
+                "max": 0.9145,
+                "q1": 0.836625,
+                "q3": 0.9092250000000001,
+                "mean": 0.86319
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 3.75,
+                "min": 2.6,
+                "max": 5.9,
+                "q1": 3.4,
+                "q3": 4.0,
+                "mean": 3.81
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.2,
+                "min": 0.0,
+                "max": 2.0,
+                "q1": 0.0,
+                "q3": 1.3000000000000003,
+                "mean": 0.63
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.9365,
+                "min": 0.511,
+                "max": 0.967,
+                "q1": 0.8312499999999999,
+                "q3": 0.941,
+                "mean": 0.8362
+              }
+            }
+          },
+          "cost_usd": 0
+        },
+        "full/raw": {
+          "n": 30,
+          "summary": {
+            "cer_primary_worst": {
+              "n": 10,
+              "median": 0.4375,
+              "min": 0.0,
+              "max": 0.8,
+              "q1": 0.0,
+              "q3": 0.6874999999999999,
+              "mean": 0.3775
+            },
+            "colour_v1_median": {
+              "n": 30,
+              "median": 16.625,
+              "min": 1.96,
+              "max": 46.29,
+              "q1": 11.057500000000001,
+              "q3": 20.6275,
+              "mean": 16.226
+            },
+            "edge_precision": {
+              "n": 30,
+              "median": 0.8524499999999999,
+              "min": 0.3682,
+              "max": 0.9636,
+              "q1": 0.7897500000000001,
+              "q3": 0.89975,
+              "mean": 0.8161466666666667
+            },
+            "edge_recall": {
+              "n": 30,
+              "median": 0.7425999999999999,
+              "min": 0.2181,
+              "max": 0.8733,
+              "q1": 0.681075,
+              "q3": 0.81485,
+              "mean": 0.72107
+            },
+            "gate_colour": {
+              "n": 30,
+              "median": 4.0,
+              "min": 0.5,
+              "max": 7.2,
+              "q1": 2.525,
+              "q3": 6.199999999999999,
+              "mean": 4.069999999999999
+            },
+            "gate_parts": {
+              "n": 30,
+              "median": 0.0,
+              "min": 0.0,
+              "max": 2.0,
+              "q1": 0.0,
+              "q3": 0.4,
+              "mean": 0.36666666666666664
+            },
+            "presence_min": {
+              "n": 30,
+              "median": 0.5665,
+              "min": 0.0,
+              "max": 0.94,
+              "q1": 0.40625,
+              "q3": 0.6665000000000001,
+              "mean": 0.4957333333333333
+            }
+          },
+          "by_case": {
+            "field16": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 19.345,
+                "min": 11.35,
+                "max": 26.01,
+                "q1": 13.5825,
+                "q3": 21.4525,
+                "mean": 18.421
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.8811,
+                "min": 0.7853,
+                "max": 0.9636,
+                "q1": 0.8702749999999999,
+                "q3": 0.94715,
+                "mean": 0.8928800000000001
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.83475,
+                "min": 0.7961,
+                "max": 0.8733,
+                "q1": 0.8095249999999999,
+                "q3": 0.863375,
+                "mean": 0.83598
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 6.35,
+                "min": 0.5,
+                "max": 7.2,
+                "q1": 1.9,
+                "q3": 6.574999999999999,
+                "mean": 4.54
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.05,
+                "min": 0.0,
+                "max": 0.4,
+                "q1": 0.0,
+                "q3": 0.27499999999999997,
+                "mean": 0.14
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.5385,
+                "min": 0.0,
+                "max": 0.754,
+                "q1": 0.4345,
+                "q3": 0.58925,
+                "mean": 0.4979
+              }
+            },
+            "lumen": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 17.975,
+                "min": 8.87,
+                "max": 46.29,
+                "q1": 15.0375,
+                "q3": 25.01,
+                "mean": 21.091
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.88515,
+                "min": 0.8031,
+                "max": 0.9201,
+                "q1": 0.82635,
+                "q3": 0.89975,
+                "mean": 0.8681599999999999
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.6985,
+                "min": 0.6259,
+                "max": 0.8187,
+                "q1": 0.684975,
+                "q3": 0.765625,
+                "mean": 0.71843
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.85,
+                "min": 0.7,
+                "max": 6.4,
+                "q1": 1.3499999999999999,
+                "q3": 5.7749999999999995,
+                "mean": 3.8600000000000003
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.0,
+                "min": 0.0,
+                "max": 1.7,
+                "q1": 0.0,
+                "q3": 0.32500000000000007,
+                "mean": 0.33
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.35900000000000004,
+                "min": 0.0,
+                "max": 0.747,
+                "q1": 0.056749999999999995,
+                "q3": 0.64825,
+                "mean": 0.3538
+              }
+            },
+            "vela": {
+              "cer_primary_worst": {
+                "n": 10,
+                "median": 0.4375,
+                "min": 0.0,
+                "max": 0.8,
+                "q1": 0.0,
+                "q3": 0.6874999999999999,
+                "mean": 0.3775
+              },
+              "colour_v1_median": {
+                "n": 10,
+                "median": 5.57,
+                "min": 1.96,
+                "max": 29.2,
+                "q1": 4.1025,
+                "q3": 11.342500000000001,
+                "mean": 9.166
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.7283999999999999,
+                "min": 0.3682,
+                "max": 0.9291,
+                "q1": 0.629675,
+                "q3": 0.795625,
+                "mean": 0.6874
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.6603,
+                "min": 0.2181,
+                "max": 0.8153,
+                "q1": 0.61755,
+                "q3": 0.715825,
+                "mean": 0.6088
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 3.75,
+                "min": 2.6,
+                "max": 5.9,
+                "q1": 3.4,
+                "q3": 4.0,
+                "mean": 3.81
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.2,
+                "min": 0.0,
+                "max": 2.0,
+                "q1": 0.0,
+                "q3": 1.3000000000000003,
+                "mean": 0.63
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.59,
+                "min": 0.096,
+                "max": 0.94,
+                "q1": 0.5569999999999999,
+                "q3": 0.842,
+                "mean": 0.6355
+              }
+            }
+          },
+          "cost_usd": 0
+        },
+        "loose/final": {
+          "n": 30,
+          "summary": {
+            "cer_primary_worst": {
+              "n": 10,
+              "median": 0.0,
+              "min": 0.0,
+              "max": 0.25,
+              "q1": 0.0,
+              "q3": 0.0,
+              "mean": 0.05
+            },
+            "colour_v1_median": {
+              "n": 30,
+              "median": 15.74,
+              "min": 3.14,
+              "max": 53.11,
+              "q1": 6.2475000000000005,
+              "q3": 20.025,
+              "mean": 17.282333333333334
+            },
+            "edge_precision": {
+              "n": 30,
+              "median": 0.7371,
+              "min": 0.1366,
+              "max": 0.9156,
+              "q1": 0.624925,
+              "q3": 0.8102,
+              "mean": 0.6886066666666667
+            },
+            "edge_recall": {
+              "n": 30,
+              "median": 0.9016500000000001,
+              "min": 0.8095,
+              "max": 0.978,
+              "q1": 0.867425,
+              "q3": 0.9188750000000001,
+              "mean": 0.8955033333333333
+            },
+            "gate_colour": {
+              "n": 30,
+              "median": 4.6,
+              "min": 0.1,
+              "max": 7.3,
+              "q1": 2.9000000000000004,
+              "q3": 5.7749999999999995,
+              "mean": 4.28
+            },
+            "gate_parts": {
+              "n": 30,
+              "median": 0.15000000000000002,
+              "min": 0.0,
+              "max": 6.0,
+              "q1": 0.0,
+              "q3": 0.5499999999999999,
+              "mean": 0.75
+            },
+            "presence_min": {
+              "n": 30,
+              "median": 0.7585,
+              "min": 0.0,
+              "max": 0.966,
+              "q1": 0.6680000000000001,
+              "q3": 0.8765,
+              "mean": 0.7025
+            }
+          },
+          "by_case": {
+            "field16": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 17.555,
+                "min": 15.64,
+                "max": 26.96,
+                "q1": 16.042499999999997,
+                "q3": 18.64,
+                "mean": 18.333
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.73335,
+                "min": 0.3994,
+                "max": 0.9156,
+                "q1": 0.64105,
+                "q3": 0.777275,
+                "mean": 0.7165
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.9080999999999999,
+                "min": 0.8777,
+                "max": 0.971,
+                "q1": 0.8971250000000001,
+                "q3": 0.931925,
+                "mean": 0.9156599999999999
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.949999999999999,
+                "min": 0.1,
+                "max": 7.3,
+                "q1": 1.425,
+                "q3": 6.4,
+                "mean": 4.0600000000000005
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.3,
+                "min": 0.0,
+                "max": 0.4,
+                "q1": 0.125,
+                "q3": 0.3,
+                "mean": 0.22999999999999998
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.683,
+                "min": 0.0,
+                "max": 0.729,
+                "q1": 0.6577500000000001,
+                "q3": 0.693,
+                "mean": 0.5495
+              }
+            },
+            "lumen": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 24.675,
+                "min": 10.14,
+                "max": 53.11,
+                "q1": 13.065000000000001,
+                "q3": 45.79749999999999,
+                "mean": 28.688
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.75225,
+                "min": 0.6409,
+                "max": 0.8494,
+                "q1": 0.6933,
+                "q3": 0.804825,
+                "mean": 0.74663
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.8967499999999999,
+                "min": 0.8505,
+                "max": 0.9278,
+                "q1": 0.868425,
+                "q3": 0.903225,
+                "mean": 0.8890800000000001
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.75,
+                "min": 0.3,
+                "max": 7.3,
+                "q1": 2.5999999999999996,
+                "q3": 5.65,
+                "mean": 4.05
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.05,
+                "min": 0.0,
+                "max": 1.4,
+                "q1": 0.0,
+                "q3": 0.475,
+                "mean": 0.31
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.8525,
+                "min": 0.009,
+                "max": 0.88,
+                "q1": 0.71075,
+                "q3": 0.8765,
+                "mean": 0.7392000000000001
+              }
+            },
+            "vela": {
+              "cer_primary_worst": {
+                "n": 10,
+                "median": 0.0,
+                "min": 0.0,
+                "max": 0.25,
+                "q1": 0.0,
+                "q3": 0.0,
+                "mean": 0.05
+              },
+              "colour_v1_median": {
+                "n": 10,
+                "median": 4.6,
+                "min": 3.14,
+                "max": 7.54,
+                "q1": 3.375,
+                "q3": 5.612500000000001,
+                "mean": 4.826
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.65725,
+                "min": 0.1366,
+                "max": 0.8567,
+                "q1": 0.4342,
+                "q3": 0.8153,
+                "mean": 0.6026900000000001
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.87,
+                "min": 0.8095,
+                "max": 0.978,
+                "q1": 0.84535,
+                "q3": 0.919125,
+                "mean": 0.88177
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.4,
+                "min": 2.7,
+                "max": 7.2,
+                "q1": 3.925,
+                "q3": 5.275,
+                "mean": 4.7299999999999995
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.3,
+                "min": 0.0,
+                "max": 6.0,
+                "q1": 0.0,
+                "q3": 3.225,
+                "mean": 1.7100000000000002
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.8955,
+                "min": 0.48,
+                "max": 0.966,
+                "q1": 0.79675,
+                "q3": 0.9424999999999999,
+                "mean": 0.8188000000000001
+              }
+            }
+          },
+          "cost_usd": 0
+        },
+        "loose/raw": {
+          "n": 30,
+          "summary": {
+            "cer_primary_worst": {
+              "n": 10,
+              "median": 0.55,
+              "min": 0.0,
+              "max": 1.0,
+              "q1": 0.3125,
+              "q3": 0.6,
+              "mean": 0.475
+            },
+            "colour_v1_median": {
+              "n": 30,
+              "median": 22.365000000000002,
+              "min": 2.5,
+              "max": 60.0,
+              "q1": 12.180000000000001,
+              "q3": 29.6375,
+              "mean": 22.648
+            },
+            "edge_precision": {
+              "n": 30,
+              "median": 0.5486,
+              "min": 0.0949,
+              "max": 0.794,
+              "q1": 0.42452500000000004,
+              "q3": 0.649,
+              "mean": 0.5113800000000001
+            },
+            "edge_recall": {
+              "n": 30,
+              "median": 0.6718500000000001,
+              "min": 0.2045,
+              "max": 0.8503,
+              "q1": 0.6122,
+              "q3": 0.7301,
+              "mean": 0.6505233333333333
+            },
+            "gate_colour": {
+              "n": 30,
+              "median": 4.6,
+              "min": 0.1,
+              "max": 7.3,
+              "q1": 2.9000000000000004,
+              "q3": 5.7749999999999995,
+              "mean": 4.28
+            },
+            "gate_parts": {
+              "n": 30,
+              "median": 0.15000000000000002,
+              "min": 0.0,
+              "max": 6.0,
+              "q1": 0.0,
+              "q3": 0.5499999999999999,
+              "mean": 0.75
+            },
+            "presence_min": {
+              "n": 30,
+              "median": 0.0215,
+              "min": 0.0,
+              "max": 0.964,
+              "q1": 0.0,
+              "q3": 0.17049999999999998,
+              "mean": 0.18756666666666666
+            }
+          },
+          "by_case": {
+            "field16": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 21.59,
+                "min": 11.8,
+                "max": 34.98,
+                "q1": 16.2425,
+                "q3": 24.64,
+                "mean": 21.881
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.6232500000000001,
+                "min": 0.2588,
+                "max": 0.794,
+                "q1": 0.561625,
+                "q3": 0.67245,
+                "mean": 0.59581
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.76015,
+                "min": 0.6736,
+                "max": 0.8503,
+                "q1": 0.7106,
+                "q3": 0.800675,
+                "mean": 0.75725
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.949999999999999,
+                "min": 0.1,
+                "max": 7.3,
+                "q1": 1.425,
+                "q3": 6.4,
+                "mean": 4.0600000000000005
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.3,
+                "min": 0.0,
+                "max": 0.4,
+                "q1": 0.125,
+                "q3": 0.3,
+                "mean": 0.22999999999999998
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.004999999999999999,
+                "min": 0.0,
+                "max": 0.024,
+                "q1": 0.0,
+                "q3": 0.021750000000000002,
+                "mean": 0.01
+              }
+            },
+            "lumen": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 35.655,
+                "min": 13.32,
+                "max": 60.0,
+                "q1": 23.2775,
+                "q3": 47.27,
+                "mean": 36.19
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.5685,
+                "min": 0.4219,
+                "max": 0.7433,
+                "q1": 0.4946,
+                "q3": 0.6379250000000001,
+                "mean": 0.57472
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.6801,
+                "min": 0.6118,
+                "max": 0.7676,
+                "q1": 0.631525,
+                "q3": 0.6992,
+                "mean": 0.6758200000000001
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.75,
+                "min": 0.3,
+                "max": 7.3,
+                "q1": 2.5999999999999996,
+                "q3": 5.65,
+                "mean": 4.05
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.05,
+                "min": 0.0,
+                "max": 1.4,
+                "q1": 0.0,
+                "q3": 0.475,
+                "mean": 0.31
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.0005,
+                "min": 0.0,
+                "max": 0.699,
+                "q1": 0.0,
+                "q3": 0.04125,
+                "mean": 0.12469999999999999
+              }
+            },
+            "vela": {
+              "cer_primary_worst": {
+                "n": 10,
+                "median": 0.55,
+                "min": 0.0,
+                "max": 1.0,
+                "q1": 0.3125,
+                "q3": 0.6,
+                "mean": 0.475
+              },
+              "colour_v1_median": {
+                "n": 10,
+                "median": 6.37,
+                "min": 2.5,
+                "max": 26.03,
+                "q1": 3.0549999999999997,
+                "q3": 13.7025,
+                "mean": 9.873000000000001
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.3514,
+                "min": 0.0949,
+                "max": 0.6466,
+                "q1": 0.27825,
+                "q3": 0.4498,
+                "mean": 0.36361
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.5569500000000001,
+                "min": 0.2045,
+                "max": 0.6651,
+                "q1": 0.47155,
+                "q3": 0.609,
+                "mean": 0.5185
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.4,
+                "min": 2.7,
+                "max": 7.2,
+                "q1": 3.925,
+                "q3": 5.275,
+                "mean": 4.7299999999999995
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.3,
+                "min": 0.0,
+                "max": 6.0,
+                "q1": 0.0,
+                "q3": 3.225,
+                "mean": 1.7100000000000002
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.321,
+                "min": 0.0,
+                "max": 0.964,
+                "q1": 0.08574999999999999,
+                "q3": 0.7897500000000001,
+                "mean": 0.42800000000000005
+              }
+            }
+          },
+          "cost_usd": 0
+        },
+        "mid/final": {
+          "n": 30,
+          "summary": {
+            "cer_primary_worst": {
+              "n": 10,
+              "median": 0.0,
+              "min": 0.0,
+              "max": 0.25,
+              "q1": 0.0,
+              "q3": 0.0,
+              "mean": 0.05
+            },
+            "colour_v1_median": {
+              "n": 30,
+              "median": 12.555,
+              "min": 3.08,
+              "max": 28.01,
+              "q1": 6.1,
+              "q3": 17.0875,
+              "mean": 12.866999999999999
+            },
+            "edge_precision": {
+              "n": 30,
+              "median": 0.82995,
+              "min": 0.3047,
+              "max": 0.9201,
+              "q1": 0.7511749999999999,
+              "q3": 0.8739,
+              "mean": 0.7762566666666667
+            },
+            "edge_recall": {
+              "n": 30,
+              "median": 0.909,
+              "min": 0.7687,
+              "max": 0.9816,
+              "q1": 0.8727749999999999,
+              "q3": 0.93605,
+              "mean": 0.9015266666666667
+            },
+            "gate_colour": {
+              "n": 30,
+              "median": 4.4,
+              "min": 0.4,
+              "max": 7.7,
+              "q1": 2.5,
+              "q3": 5.0,
+              "mean": 4.06
+            },
+            "gate_parts": {
+              "n": 30,
+              "median": 0.1,
+              "min": 0.0,
+              "max": 4.6,
+              "q1": 0.0,
+              "q3": 0.4,
+              "mean": 0.5633333333333332
+            },
+            "presence_min": {
+              "n": 30,
+              "median": 0.7669999999999999,
+              "min": 0.0,
+              "max": 0.956,
+              "q1": 0.68,
+              "q3": 0.87875,
+              "mean": 0.732
+            }
+          },
+          "by_case": {
+            "field16": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 15.655000000000001,
+                "min": 11.4,
+                "max": 28.01,
+                "q1": 14.6575,
+                "q3": 17.6825,
+                "mean": 16.726
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.82995,
+                "min": 0.7404,
+                "max": 0.9112,
+                "q1": 0.8032750000000001,
+                "q3": 0.841925,
+                "mean": 0.8289799999999999
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.9353,
+                "min": 0.8835,
+                "max": 0.9653,
+                "q1": 0.912825,
+                "q3": 0.9464500000000001,
+                "mean": 0.92899
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.55,
+                "min": 0.4,
+                "max": 7.1,
+                "q1": 1.6750000000000003,
+                "q3": 6.0,
+                "mean": 3.9899999999999998
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.2,
+                "min": 0.0,
+                "max": 0.4,
+                "q1": 0.1,
+                "q3": 0.3,
+                "mean": 0.2
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.6785000000000001,
+                "min": 0.0,
+                "max": 0.713,
+                "q1": 0.6695000000000001,
+                "q3": 0.6905,
+                "mean": 0.5485
+              }
+            },
+            "lumen": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 14.370000000000001,
+                "min": 9.88,
+                "max": 27.3,
+                "q1": 11.3,
+                "q3": 22.26,
+                "mean": 16.844
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.85665,
+                "min": 0.6246,
+                "max": 0.9144,
+                "q1": 0.827975,
+                "q3": 0.8739,
+                "mean": 0.83628
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.909,
+                "min": 0.8498,
+                "max": 0.9438,
+                "q1": 0.8767499999999999,
+                "q3": 0.915725,
+                "mean": 0.9010400000000001
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.4,
+                "min": 1.1,
+                "max": 5.5,
+                "q1": 2.1750000000000003,
+                "q3": 4.95,
+                "mean": 3.59
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.1,
+                "min": 0.0,
+                "max": 1.5,
+                "q1": 0.025,
+                "q3": 0.32500000000000007,
+                "mean": 0.32999999999999996
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.87,
+                "min": 0.68,
+                "max": 0.88,
+                "q1": 0.7249999999999999,
+                "q3": 0.8767499999999999,
+                "mean": 0.8134
+              }
+            },
+            "vela": {
+              "cer_primary_worst": {
+                "n": 10,
+                "median": 0.0,
+                "min": 0.0,
+                "max": 0.25,
+                "q1": 0.0,
+                "q3": 0.0,
+                "mean": 0.05
+              },
+              "colour_v1_median": {
+                "n": 10,
+                "median": 5.085,
+                "min": 3.08,
+                "max": 7.62,
+                "q1": 3.5974999999999997,
+                "q3": 5.897499999999999,
+                "mean": 5.031000000000001
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.6746000000000001,
+                "min": 0.3047,
+                "max": 0.9201,
+                "q1": 0.5115000000000001,
+                "q3": 0.8612500000000001,
+                "mean": 0.66351
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.8747499999999999,
+                "min": 0.7687,
+                "max": 0.9816,
+                "q1": 0.840975,
+                "q3": 0.9031250000000001,
+                "mean": 0.8745499999999999
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.4,
+                "min": 2.8,
+                "max": 7.7,
+                "q1": 4.125,
+                "q3": 4.675000000000001,
+                "mean": 4.6
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.3,
+                "min": 0.0,
+                "max": 4.6,
+                "q1": 0.0,
+                "q3": 1.6749999999999998,
+                "mean": 1.16
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.9404999999999999,
+                "min": 0.503,
+                "max": 0.956,
+                "q1": 0.825,
+                "q3": 0.942,
+                "mean": 0.8341
+              }
+            }
+          },
+          "cost_usd": 0
+        },
+        "mid/raw": {
+          "n": 30,
+          "summary": {
+            "cer_primary_worst": {
+              "n": 10,
+              "median": 0.5625,
+              "min": 0.0,
+              "max": 1.0,
+              "q1": 0.0625,
+              "q3": 0.7375,
+              "mean": 0.48250000000000004
+            },
+            "colour_v1_median": {
+              "n": 30,
+              "median": 19.924999999999997,
+              "min": 2.59,
+              "max": 42.77,
+              "q1": 11.5225,
+              "q3": 25.2275,
+              "mean": 18.840666666666667
+            },
+            "edge_precision": {
+              "n": 30,
+              "median": 0.72515,
+              "min": 0.2417,
+              "max": 0.9341,
+              "q1": 0.54525,
+              "q3": 0.76585,
+              "mean": 0.6564366666666667
+            },
+            "edge_recall": {
+              "n": 30,
+              "median": 0.70495,
+              "min": 0.2286,
+              "max": 0.8696,
+              "q1": 0.55475,
+              "q3": 0.779525,
+              "mean": 0.6647700000000001
+            },
+            "gate_colour": {
+              "n": 30,
+              "median": 4.4,
+              "min": 0.4,
+              "max": 7.7,
+              "q1": 2.5,
+              "q3": 5.0,
+              "mean": 4.06
+            },
+            "gate_parts": {
+              "n": 30,
+              "median": 0.1,
+              "min": 0.0,
+              "max": 4.6,
+              "q1": 0.0,
+              "q3": 0.4,
+              "mean": 0.5633333333333332
+            },
+            "presence_min": {
+              "n": 30,
+              "median": 0.276,
+              "min": 0.0,
+              "max": 0.916,
+              "q1": 0.0175,
+              "q3": 0.6127499999999999,
+              "mean": 0.34013333333333334
+            }
+          },
+          "by_case": {
+            "field16": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 22.605,
+                "min": 9.92,
+                "max": 35.64,
+                "q1": 19.877499999999998,
+                "q3": 26.4375,
+                "mean": 22.851
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.76135,
+                "min": 0.6472,
+                "max": 0.7991,
+                "q1": 0.7531249999999999,
+                "q3": 0.773225,
+                "mean": 0.75168
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.8119000000000001,
+                "min": 0.7643,
+                "max": 0.8696,
+                "q1": 0.78545,
+                "q3": 0.857,
+                "mean": 0.8195499999999999
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.55,
+                "min": 0.4,
+                "max": 7.1,
+                "q1": 1.6750000000000003,
+                "q3": 6.0,
+                "mean": 3.9899999999999998
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.2,
+                "min": 0.0,
+                "max": 0.4,
+                "q1": 0.1,
+                "q3": 0.3,
+                "mean": 0.2
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.1505,
+                "min": 0.0,
+                "max": 0.616,
+                "q1": 0.0,
+                "q3": 0.5105,
+                "mean": 0.2428
+              }
+            },
+            "lumen": {
+              "colour_v1_median": {
+                "n": 10,
+                "median": 22.72,
+                "min": 11.27,
+                "max": 42.77,
+                "q1": 20.38,
+                "q3": 29.9175,
+                "mean": 25.127
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.72515,
+                "min": 0.5166,
+                "max": 0.8114,
+                "q1": 0.6486749999999999,
+                "q3": 0.7491,
+                "mean": 0.6997099999999999
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.6991,
+                "min": 0.659,
+                "max": 0.7798,
+                "q1": 0.66815,
+                "q3": 0.7206,
+                "mean": 0.70338
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.4,
+                "min": 1.1,
+                "max": 5.5,
+                "q1": 2.1750000000000003,
+                "q3": 4.95,
+                "mean": 3.59
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.1,
+                "min": 0.0,
+                "max": 1.5,
+                "q1": 0.025,
+                "q3": 0.32500000000000007,
+                "mean": 0.32999999999999996
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.20400000000000001,
+                "min": 0.0,
+                "max": 0.764,
+                "q1": 0.0175,
+                "q3": 0.61575,
+                "mean": 0.3077
+              }
+            },
+            "vela": {
+              "cer_primary_worst": {
+                "n": 10,
+                "median": 0.5625,
+                "min": 0.0,
+                "max": 1.0,
+                "q1": 0.0625,
+                "q3": 0.7375,
+                "mean": 0.48250000000000004
+              },
+              "colour_v1_median": {
+                "n": 10,
+                "median": 7.3950000000000005,
+                "min": 2.59,
+                "max": 17.39,
+                "q1": 2.81,
+                "q3": 13.532499999999999,
+                "mean": 8.544
+              },
+              "edge_precision": {
+                "n": 10,
+                "median": 0.4873,
+                "min": 0.2417,
+                "max": 0.9341,
+                "q1": 0.370425,
+                "q3": 0.6533,
+                "mean": 0.5179199999999999
+              },
+              "edge_recall": {
+                "n": 10,
+                "median": 0.46835,
+                "min": 0.2286,
+                "max": 0.7089,
+                "q1": 0.43945000000000006,
+                "q3": 0.5512,
+                "mean": 0.47138
+              },
+              "gate_colour": {
+                "n": 10,
+                "median": 4.4,
+                "min": 2.8,
+                "max": 7.7,
+                "q1": 4.125,
+                "q3": 4.675000000000001,
+                "mean": 4.6
+              },
+              "gate_parts": {
+                "n": 10,
+                "median": 0.3,
+                "min": 0.0,
+                "max": 4.6,
+                "q1": 0.0,
+                "q3": 1.6749999999999998,
+                "mean": 1.16
+              },
+              "presence_min": {
+                "n": 10,
+                "median": 0.4875,
+                "min": 0.0,
+                "max": 0.916,
+                "q1": 0.15275,
+                "q3": 0.771,
+                "mean": 0.4699
+              }
+            }
+          },
+          "cost_usd": 0
+        }
+      },
+      "vs_baseline": {
+        "full/raw": {
+          "cer_primary_worst": {
+            "pairs": 10,
+            "median_diff": 0.4375,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.7
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "colour_v1_median": {
+            "pairs": 30,
+            "median_diff": 2.9949999999999997,
+            "win_rate": 0.3,
+            "direction": "down",
+            "ci95": [
+              0.44499999999999984,
+              6.709999999999997
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_precision": {
+            "pairs": 30,
+            "median_diff": -0.0383,
+            "win_rate": 0.23333333333333334,
+            "direction": "up",
+            "ci95": [
+              -0.08939999999999998,
+              -0.013349999999999973
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_recall": {
+            "pairs": 30,
+            "median_diff": -0.1427,
+            "win_rate": 0.0,
+            "direction": "up",
+            "ci95": [
+              -0.19115,
+              -0.10830000000000006
+            ],
+            "verdict": "worse than baseline"
+          },
+          "gate_colour": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_parts": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "presence_min": {
+            "pairs": 30,
+            "median_diff": -0.20099999999999996,
+            "win_rate": 0.06666666666666667,
+            "direction": "up",
+            "ci95": [
+              -0.298,
+              -0.13
+            ],
+            "verdict": "worse than baseline"
+          }
+        },
+        "loose/final": {
+          "cer_primary_worst": {
+            "pairs": 10,
+            "median_diff": 0.0,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.125
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "colour_v1_median": {
+            "pairs": 30,
+            "median_diff": 0.5949999999999989,
+            "win_rate": 0.4666666666666667,
+            "direction": "down",
+            "ci95": [
+              -0.22999999999999998,
+              3.2299999999999986
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "edge_precision": {
+            "pairs": 30,
+            "median_diff": -0.1577,
+            "win_rate": 0.03333333333333333,
+            "direction": "up",
+            "ci95": [
+              -0.21455000000000002,
+              -0.11595
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_recall": {
+            "pairs": 30,
+            "median_diff": -0.005699999999999983,
+            "win_rate": 0.4666666666666667,
+            "direction": "up",
+            "ci95": [
+              -0.03270000000000006,
+              0.010749999999999982
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_colour": {
+            "pairs": 30,
+            "median_diff": 0.09999999999999964,
+            "win_rate": 0.43333333333333335,
+            "direction": "down",
+            "ci95": [
+              -0.4999999999999998,
+              0.6000000000000001
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_parts": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.1,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "presence_min": {
+            "pairs": 30,
+            "median_diff": -0.0015000000000000013,
+            "win_rate": 0.3,
+            "direction": "up",
+            "ci95": [
+              -0.027000000000000024,
+              0.0
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          }
+        },
+        "loose/raw": {
+          "cer_primary_worst": {
+            "pairs": 10,
+            "median_diff": 0.55,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.25,
+              0.6499999999999999
+            ],
+            "verdict": "worse than baseline"
+          },
+          "colour_v1_median": {
+            "pairs": 30,
+            "median_diff": 7.944999999999999,
+            "win_rate": 0.26666666666666666,
+            "direction": "down",
+            "ci95": [
+              1.2600000000000007,
+              17.965000000000003
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_precision": {
+            "pairs": 30,
+            "median_diff": -0.3504,
+            "win_rate": 0.0,
+            "direction": "up",
+            "ci95": [
+              -0.37965,
+              -0.28845
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_recall": {
+            "pairs": 30,
+            "median_diff": -0.23015000000000002,
+            "win_rate": 0.0,
+            "direction": "up",
+            "ci95": [
+              -0.2559,
+              -0.1728
+            ],
+            "verdict": "worse than baseline"
+          },
+          "gate_colour": {
+            "pairs": 30,
+            "median_diff": 0.09999999999999964,
+            "win_rate": 0.43333333333333335,
+            "direction": "down",
+            "ci95": [
+              -0.4999999999999998,
+              0.5999999999999999
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_parts": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.1,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.0
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "presence_min": {
+            "pairs": 30,
+            "median_diff": -0.6725,
+            "win_rate": 0.0,
+            "direction": "up",
+            "ci95": [
+              -0.732,
+              -0.513
+            ],
+            "verdict": "worse than baseline"
+          }
+        },
+        "mid/final": {
+          "cer_primary_worst": {
+            "pairs": 10,
+            "median_diff": 0.0,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.125
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "colour_v1_median": {
+            "pairs": 30,
+            "median_diff": -0.3700000000000001,
+            "win_rate": 0.6666666666666666,
+            "direction": "down",
+            "ci95": [
+              -0.625,
+              0.004999999999999005
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "edge_precision": {
+            "pairs": 30,
+            "median_diff": -0.06204999999999994,
+            "win_rate": 0.06666666666666667,
+            "direction": "up",
+            "ci95": [
+              -0.09060000000000007,
+              -0.04980000000000001
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_recall": {
+            "pairs": 30,
+            "median_diff": -0.0008499999999999619,
+            "win_rate": 0.4666666666666667,
+            "direction": "up",
+            "ci95": [
+              -0.008199999999999985,
+              0.009099999999999997
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_colour": {
+            "pairs": 30,
+            "median_diff": -0.04999999999999993,
+            "win_rate": 0.5,
+            "direction": "down",
+            "ci95": [
+              -0.55,
+              0.4
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_parts": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.1,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.05
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "presence_min": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.36666666666666664,
+            "direction": "up",
+            "ci95": [
+              -0.006500000000000006,
+              0.0010000000000000009
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          }
+        },
+        "mid/raw": {
+          "cer_primary_worst": {
+            "pairs": 10,
+            "median_diff": 0.5625,
+            "win_rate": 0.0,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.8125
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "colour_v1_median": {
+            "pairs": 30,
+            "median_diff": 7.914999999999999,
+            "win_rate": 0.26666666666666666,
+            "direction": "down",
+            "ci95": [
+              1.8200000000000003,
+              9.875
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_precision": {
+            "pairs": 30,
+            "median_diff": -0.19585000000000002,
+            "win_rate": 0.0,
+            "direction": "up",
+            "ci95": [
+              -0.23635,
+              -0.1301
+            ],
+            "verdict": "worse than baseline"
+          },
+          "edge_recall": {
+            "pairs": 30,
+            "median_diff": -0.17870000000000003,
+            "win_rate": 0.0,
+            "direction": "up",
+            "ci95": [
+              -0.2508,
+              -0.14075
+            ],
+            "verdict": "worse than baseline"
+          },
+          "gate_colour": {
+            "pairs": 30,
+            "median_diff": -0.04999999999999993,
+            "win_rate": 0.5,
+            "direction": "down",
+            "ci95": [
+              -0.5500000000000003,
+              0.4
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "gate_parts": {
+            "pairs": 30,
+            "median_diff": 0.0,
+            "win_rate": 0.1,
+            "direction": "down",
+            "ci95": [
+              0.0,
+              0.05
+            ],
+            "verdict": "no winner: the interval crosses zero"
+          },
+          "presence_min": {
+            "pairs": 30,
+            "median_diff": -0.4565,
+            "win_rate": 0.03333333333333333,
+            "direction": "up",
+            "ci95": [
+              -0.5935,
+              -0.21799999999999997
+            ],
+            "verdict": "worse than baseline"
+          }
+        }
+      },
+      "cost": {
+        "total_usd": 0,
+        "including_not_ok_usd": 0,
+        "time_s_total": 0
+      },
+      "baseline": "full/final"
+    },
+    "seconds": {
+      "median": 71.1,
+      "n": 22,
+      "min": 46.7,
+      "max": 184.4,
+      "n_contaminated": 68
+    },
+    "tables": {
+      "conditions_md": "| Condición | n | Precisión de bordes ↑ | Recall de bordes ↑ | Presencia ↑ | Color v1 ↓ | CER principal ↓ (VELA) | Gate actual: publica |\n|---|---|---|---|---|---|---|---|\n| control 1,0, con guardas | 30 | 0.898 (0.56–0.986) | 0.914 (0.781–0.966) | 0.835 (0–0.967) | 12.2 (3.27–27.8) | 0 (0–0) | 18/30 |\n| control 0,75, con guardas | 30 | 0.83 (0.305–0.92) | 0.909 (0.769–0.982) | 0.767 (0–0.956) | 12.6 (3.08–28) | 0 (0–0.25) | 23/30 |\n| control 0,5, con guardas | 30 | 0.737 (0.137–0.916) | 0.902 (0.809–0.978) | 0.758 (0–0.966) | 15.7 (3.14–53.1) | 0 (0–0.25) | 18/30 |\n| control 1,0, crudo | 30 | 0.852 (0.368–0.964) | 0.743 (0.218–0.873) | 0.567 (0–0.94) | 16.6 (1.96–46.3) | 0.438 (0–0.8) | 18/30 |\n| control 0,75, crudo | 30 | 0.725 (0.242–0.934) | 0.705 (0.229–0.87) | 0.276 (0–0.916) | 19.9 (2.59–42.8) | 0.562 (0–1) | 23/30 |\n| control 0,5, crudo | 30 | 0.549 (0.0949–0.794) | 0.672 (0.204–0.85) | 0.0215 (0–0.964) | 22.4 (2.5–60) | 0.55 (0–1) | 18/30 |",
+      "comparisons_md": "| Contra \"control 1,0 con guardas\" | Métrica | Mediana de la diferencia | IC 95 % | Pares | Veredicto |\n|---|---|---|---|---|---|\n| control 0,75, con guardas | edge_precision | -0.062 | -0.0906 a -0.0498 | 30 | peor |\n| control 0,75, con guardas | presence_min | 0 | -0.0065 a 0.001 | 30 | sin ganador (el IC cruza el 0) |\n| control 0,75, con guardas | colour_v1_median | -0.37 | -0.625 a 0.005 | 30 | sin ganador (el IC cruza el 0) |\n| control 0,75, con guardas | cer_primary_worst | 0 | 0 a 0.125 | 10 | sin ganador (el IC cruza el 0) |\n| control 0,5, con guardas | edge_precision | -0.158 | -0.215 a -0.116 | 30 | peor |\n| control 0,5, con guardas | presence_min | -0.0015 | -0.027 a 0 | 30 | sin ganador (el IC cruza el 0) |\n| control 0,5, con guardas | colour_v1_median | 0.595 | -0.23 a 3.23 | 30 | sin ganador (el IC cruza el 0) |\n| control 0,5, con guardas | cer_primary_worst | 0 | 0 a 0.125 | 10 | sin ganador (el IC cruza el 0) |\n| control 1,0, crudo | edge_precision | -0.0383 | -0.0894 a -0.0133 | 30 | peor |\n| control 1,0, crudo | presence_min | -0.201 | -0.298 a -0.13 | 30 | peor |\n| control 1,0, crudo | colour_v1_median | 2.99 | 0.445 a 6.71 | 30 | peor |\n| control 1,0, crudo | cer_primary_worst | 0.438 | 0 a 0.7 | 10 | sin ganador (el IC cruza el 0) |\n| control 0,75, crudo | edge_precision | -0.196 | -0.236 a -0.13 | 30 | peor |\n| control 0,75, crudo | presence_min | -0.457 | -0.594 a -0.218 | 30 | peor |\n| control 0,75, crudo | colour_v1_median | 7.91 | 1.82 a 9.88 | 30 | peor |\n| control 0,75, crudo | cer_primary_worst | 0.562 | 0 a 0.812 | 10 | sin ganador (el IC cruza el 0) |\n| control 0,5, crudo | edge_precision | -0.35 | -0.38 a -0.288 | 30 | peor |\n| control 0,5, crudo | presence_min | -0.672 | -0.732 a -0.513 | 30 | peor |\n| control 0,5, crudo | colour_v1_median | 7.94 | 1.26 a 18 | 30 | peor |\n| control 0,5, crudo | cer_primary_worst | 0.55 | 0.25 a 0.65 | 10 | peor |"
+    }
   }
 }

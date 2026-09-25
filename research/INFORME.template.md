@@ -1,6 +1,6 @@
 # Cómo mantener un producto consistente en un workflow de diseño generativo
 
-> Informe de investigación · 25 de septiembre de 2026 · Estado: **fases 0 y 1 terminadas** (productos, línea base de variación real y selección de métricas con fallas conocidas). Todavía no hay imágenes generadas por IA ni etiquetas humanas.
+> Informe de investigación · 25 de septiembre de 2026 · Estado: **fases 0, 1 y 2 terminadas** (productos, línea base de variación real, selección de métricas y 180 generaciones medidas). Falta el etiquetado humano.
 > Este archivo se genera: `research/INFORME.template.md` + `research/results.json` → `research/INFORME.md` (con `research/scripts/render_report.py`). Ningún número está escrito a mano.
 > Las fuentes, con links verificados, están en [`LITERATURE.md`](LITERATURE.md). Las condiciones y métricas, en [`PROTOCOL.md`](PROTOCOL.md).
 
@@ -12,8 +12,8 @@
 |---|---|---|
 | 0 | Portar el pipeline de From CAD to Shelf, construir VELA, pases, línea base de variación real | Terminada |
 | 1 | Batería de métricas por región y perturbaciones con falla conocida | Terminada: batería elegida para la fase 2 |
-| 2 | Generar ≈ 180 imágenes con SDXL local (fallas naturales) | Pendiente |
-| 3 | Etiquetado humano, calibración con LUMEN, gate v1 congelado, evaluación con FIELD 16 + VELA | Pendiente |
+| 2 | Generar 180 imágenes con SDXL local (fallas naturales) y medirlas | Terminada |
+| 3 | Etiquetado humano, calibración con LUMEN, gate v1 congelado, evaluación con FIELD 16 + VELA | **Siguiente: necesita tus etiquetas** |
 | 4 | Estudio B en nano-banana-2 (pago, con aprobación) | Pendiente |
 
 ### Los tres productos
@@ -117,6 +117,48 @@ Una falla cuenta como detectada si queda peor que el **peor** valor del producto
 
 **Próximo paso: fase 2 (local, sin costo).** Generar con el grafo SDXL de From CAD to Shelf unas 180 imágenes: 3 productos × 2 vistas × fuerza de ControlNet 1,0 / 0,75 / 0,5 × con y sin guardas × 5 semillas. Son unas 10 horas de GPU. Esas imágenes traen las fallas naturales que después etiquetás a ciegas.
 
+### Fase 2: generaciones reales, antes de etiquetar
+
+**Qué se hizo.** Con el grafo local de From CAD to Shelf (RealVisXL, ControlNet Union y SDXL Lightning, sin cambios) se generaron {{phase2.n_generations}} fotos: 3 productos × 2 vistas × 3 fuerzas de control × semillas 1 a 5. Las fuerzas son:
+- **1,0:** la escena tal como sale (depth 0,95, normal 0,60, denoise 0,62);
+- **0,75:** a mitad de camino;
+- **0,5:** la variante "a media fuerza" de la ablación publicada.
+
+Cada foto se guardó en crudo y con las guardas aplicadas ({{phase2.n_images}} imágenes). Todas se midieron con el gate actual y con la batería elegida en la fase 1. **Todavía no hay etiquetas humanas**, así que esto muestra cómo se mueve cada métrica, no qué foto sirve.
+
+![Fase 2, ejemplos fijados antes de mirar: semilla 1, vista principal, las tres fuerzas, en crudo y con guardas](img/generated.jpg)
+
+**Por condición.** Mediana y rango de las 30 fotos de cada condición.
+
+{{phase2.tables.conditions_md}}
+
+> ↑ más alto es mejor, ↓ más bajo es mejor. El CER solo se mide en VELA (10 fotos por condición). El gate actual juzga el color sobre la foto cruda y las partes sobre la terminada, así que su veredicto es por generación y se repite en las dos filas. Datos: filas `gen-v1-*` de `research/runs.jsonl`.
+
+**Comparación emparejada** por producto, vista y semilla, contra el pipeline tal como sale (control 1,0 con guardas). Se hizo con `summarize_runs.py`: intervalo bootstrap del 95 %, y sin ganador si el intervalo cruza el cero.
+
+<details><summary>Tabla de comparaciones</summary>
+
+{{phase2.tables.comparisons_md}}
+
+</details>
+
+**Lectura.**
+- **Aflojar el control inventa geometría, y las guardas no la borran.** Con guardas, la precisión de bordes baja de {{phase2.summary.conditions.full/final.summary.edge_precision.median|.2f}} (control 1,0) a {{phase2.summary.conditions.mid/final.summary.edge_precision.median|.2f}} (0,75) y a {{phase2.summary.conditions.loose/final.summary.edge_precision.median|.2f}} (0,5). Las dos comparaciones dan "peor", con el intervalo fuera del cero. Las guardas devuelven el color, el detalle y las partes protegidas, pero no quitan lo que el modelo agregó.
+- **Las guardas sí recuperan lo que falta.** De crudo a terminado, con control 1,0: recall de bordes {{phase2.summary.conditions.full/raw.summary.edge_recall.median|.2f}} → {{phase2.summary.conditions.full/final.summary.edge_recall.median|.2f}}, presencia {{phase2.summary.conditions.full/raw.summary.presence_min.median|.2f}} → {{phase2.summary.conditions.full/final.summary.presence_min.median|.2f}}.
+- **El texto nunca sale bien del modelo.** En VELA, el CER principal de la foto cruda tiene una mediana de {{phase2.summary.conditions.full/raw.summary.cer_primary_worst.median|.2f}} con control 1,0 y {{phase2.summary.conditions.loose/raw.summary.cer_primary_worst.median|.2f}} con 0,5. Con el lock de la pantalla baja a {{phase2.summary.conditions.full/final.summary.cer_primary_worst.median|.2f}}. Es la recomendación 2 ("lo que se puede componer no se genera"), ahora con 10 fotos por condición.
+- **El gate actual no ve la degradación.** Publica {{phase2.gate_publish.full_final.n}}, {{phase2.gate_publish.mid_final.n}} y {{phase2.gate_publish.loose_final.n}} de 30 con control 1,0, 0,75 y 0,5: no baja cuando se afloja el control, mientras la batería sí baja.
+- **Hay que resolver una tensión en el color.** El color v1 compara contra el render de estudio, pero las guardas empujan cada parte al color del spec, que no es el del render (el render desatura el naranja). Por eso el color v1 queda alto incluso con guardas (mediana {{phase2.summary.conditions.full/final.summary.colour_v1_median.median|.3g}}). El etiquetado va a decir cuál de las dos referencias coincide con tu ojo.
+
+**Tiempo.** La mediana es de {{phase2.seconds.median}} s por foto ({{phase2.seconds.min}}–{{phase2.seconds.max}} s, n = {{phase2.seconds.n}}), en una RTX 2060 de 6 GB, sin costo. Otras {{phase2.seconds.n_contaminated}} generaciones corrieron mientras un proceso duplicado usaba la misma GPU, así que sus tiempos no cuentan (ver "Lo que salió mal").
+
+**Lo que salió mal.** Durante la primera parte de la generación corrieron dos generadores a la vez, porque un intento anterior había quedado vivo. Las imágenes no cambian (misma semilla, mismo grafo, mismo archivo), pero los tiempos de esas generaciones quedaron inflados. Las filas afectadas llevan una nota en `runs.jsonl`.
+
+**Próximo paso: fase 3, tu etiquetado.** Corré `py tools/label.py` y abrí `http://localhost:8765`. Ves las {{phase2.n_images}} fotos a ciegas, cada una al lado del render correcto:
+- con 1 a 4 marcás las fallas que veas (forma o partes, color, texto, otro);
+- con S o N decidís si la publicarías.
+
+Cada respuesta se guarda en el momento. Unos días después hay una segunda pasada con el 20 % de las fotos (test-retest).
+
 ---
 
 ## Recomendaciones, según la evidencia de hoy
@@ -132,8 +174,8 @@ Esta sección se actualiza con cada fase. Cada recomendación dice de dónde sal
 **1. Partir de un 3D (CAD o un modelo reconstruido), no de una imagen.** *Industria (gemelos digitales de Unilever, Nestlé y NVIDIA) y From CAD to Shelf.*
 El 3D fija la geometría a través de ControlNet. Además da con qué medir. Todas las métricas que funcionaron en la fase 1 (bordes, presencia por pieza, color por parte) usan las máscaras, el mapa de partes y los bordes del render. Sin 3D, el producto se puede generar, pero no se puede verificar por región.
 
-**2. Lo que se puede componer, no se genera.** *Literatura (COLE, PosterMaker), industria (Photoroom) y un caso.*
-El texto, las pantallas y los logos se pegan exactos después de generar, en vez de pedírselos al modelo. Logo o texto deformado es la falla más frecuente en el benchmark humano de Photoroom (20 % de las fallas). En la primera prueba de la fase 2, SDXL inventó texto ilegible en la pantalla de VELA, y el lock de From CAD to Shelf lo reemplazó por la pantalla exacta. Es un solo caso: los números salen de la fase 2.
+**2. Lo que se puede componer, no se genera.** *Literatura (COLE, PosterMaker), industria (Photoroom) y nuestros datos (fase 2).*
+El texto, las pantallas y los logos se pegan exactos después de generar, en vez de pedírselos al modelo. Logo o texto deformado es la falla más frecuente en el benchmark humano de Photoroom (20 % de las fallas). En la fase 2, la pantalla de VELA nunca salió bien del modelo: CER principal mediano de {{phase2.summary.conditions.full/raw.summary.cer_primary_worst.median|.2f}} en crudo con control 1,0. Con el lock baja a {{phase2.summary.conditions.full/final.summary.cer_primary_worst.median|.2f}}.
 
 **3. Toda imagen pasa por un gate, y el gate tiene que mirar los dos lados.** *Nuestros datos (perturbaciones sintéticas).*
 - Un gate de color solo no alcanza. El de From CAD to Shelf no rechazó ninguna parte inventada ni faltante fuera del colorway naranja ({{phase1.gate_quiet.other.n}} de {{phase1.gate_quiet.other.of}} en esas perturbaciones), y rechazó {{phase1.gate_false_rejections.n}} de {{phase1.gate_false_rejections.of}} imágenes correctas.
@@ -147,8 +189,8 @@ Comparado con el spec, el render naranja correcto no pasó nunca ({{phase0.orang
 
 ### Todavía sin medir acá
 
-**5. Separar forma y luz, y aceptar el costo en realismo.** *From CAD to Shelf (una semilla por variante).*
-Mucho control (ControlNet alto y denoise bajo) sostiene el producto, pero la foto se ve a render. La fase 2 barre esa perilla (1,0, 0,75 y 0,5).
+**5. Mantener el control alto, porque las guardas no borran lo inventado.** *Nuestros datos (fase 2); falta medir el realismo.*
+Con guardas, la precisión de bordes cae de {{phase2.summary.conditions.full/final.summary.edge_precision.median|.2f}} a {{phase2.summary.conditions.loose/final.summary.edge_precision.median|.2f}} al pasar de control 1,0 a 0,5 (comparación emparejada: peor, con el IC fuera del cero). El costo, según From CAD to Shelf, es que la foto se ve a render. Eso todavía no está medido acá: es la comparación de realismo del Estudio B.
 
 **6. En ediciones de varios turnos, volver siempre a la referencia original y repetir la lista de invariantes.** *Guías de OpenAI, Google y BFL, sin mediciones publicadas. Hipótesis H6.*
 
