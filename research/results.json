@@ -1902,5 +1902,55 @@
       "detection_md": "| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Presencia v1 | Presencia v2 | Color p95 | Color v1 mediana | Color v2 (contraste) | DreamSim | CER principal |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Parte inventada | sí | 4/12 | 11/12 | 1/12 | 0/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Parte faltante | sí | 4/12 | 2/12 | 7/12 | 6/12 | 6/12 | 6/12 | 6/12 | 3/12 | 0/4 |\n| Texto borrado | sí | 4/12 | 7/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 2/4 |\n| Typo (\"Messagas\") | sí | 0/2 | 2/2 | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 | 2/2 |\n| Warp 10 % | sí | 6/12 | 12/12 | 10/12 | 8/12 | 8/12 | 5/12 | 4/12 | 4/12 | 0/4 |\n| Warp 25 % | sí | 7/12 | 12/12 | 10/12 | 8/12 | 8/12 | 6/12 | 8/12 | 9/12 | 0/4 |\n| Color +10 | sí | 11/12 | 1/12 | 0/12 | 1/12 | 2/12 | 8/12 | 2/12 | 3/12 | 0/4 |\n| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 3/12 | 0/12 | 1/12 | 0/4 |\n| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Otro fondo | no | 4/12 | 2/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 0/12 | 7/12 | 0/12 | 0/12 | 4/12 | 0/4 |\n| JPEG calidad 35 | no | 4/12 | 1/12 | 1/12 | 0/12 | 7/12 | 3/12 | 3/12 | 1/12 | 0/4 |",
       "auc_md": "| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Presencia v1 | Presencia v2 | Color p95 | Color v1 mediana | Color v2 (contraste) | DreamSim | CER principal |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n| Parte inventada | sí | 0.41 | 0.93 | 0.33 | 0.55 | 0.17 | 0.38 | 0.25 | 0.27 | 0.35 | 0.50 |\n| Parte faltante | sí | 0.41 | 0.41 | 0.69 | 0.79 | 0.80 | 0.66 | 0.66 | 0.66 | 0.54 | 0.50 |\n| Texto borrado | sí | 0.41 | 0.82 | 0.71 | 0.49 | 0.51 | 0.38 | 0.24 | 0.29 | 0.41 | 0.75 |\n| Typo (\"Messagas\") | sí | 0.44 | 1.00 | 0.81 | 0.50 | 0.12 | 0.22 | 0.12 | 0.12 | 0.25 | 1.00 |\n| Warp 10 % | sí | 0.49 | 1.00 | 1.00 | 0.97 | 0.95 | 0.73 | 0.66 | 0.75 | 0.64 | 0.50 |\n| Warp 25 % | sí | 0.54 | 1.00 | 1.00 | 0.97 | 0.95 | 0.74 | 0.73 | 0.92 | 0.91 | 0.50 |\n| Color +10 | sí | 0.70 | 0.31 | 0.31 | 0.44 | 0.70 | 0.52 | 0.91 | 0.76 | 0.64 | 0.50 |\n| Color +5 | borde | 0.41 | 0.33 | 0.34 | 0.38 | 0.55 | 0.38 | 0.76 | 0.60 | 0.44 | 0.50 |\n| Color +2 | no | 0.40 | 0.29 | 0.34 | 0.43 | 0.44 | 0.32 | 0.48 | 0.39 | 0.29 | 0.50 |\n| Otro fondo | no | 0.40 | 0.47 | 0.34 | 0.52 | 0.08 | 0.36 | 0.09 | 0.07 | 0.07 | 0.50 |\n| Balance de blancos | no | 0.78 | 0.39 | 0.27 | 0.48 | 0.30 | 0.82 | 0.28 | 0.37 | 0.79 | 0.50 |\n| JPEG calidad 35 | no | 0.40 | 0.69 | 0.53 | 0.46 | 0.56 | 0.73 | 0.68 | 0.63 | 0.55 | 0.50 |"
     }
+  },
+  "gate_example": {
+    "product": "lumen",
+    "view": "front",
+    "colorway": "signal-orange",
+    "condition": "loose",
+    "seed": 1,
+    "scene": "studio-paper",
+    "envelope": {
+      "edge_precision": 0.9807,
+      "edge_recall": 0.8149,
+      "presence_min": 0.858,
+      "colour_v1_median": 8.84
+    },
+    "raw": {
+      "scores": {
+        "edge_precision": 0.473,
+        "edge_recall": 0.768,
+        "presence_min": 0.699,
+        "colour_v1_median": 58.44
+      },
+      "fails": 4,
+      "flags": {
+        "edge_precision": true,
+        "edge_recall": true,
+        "presence_min": true,
+        "colour_v1_median": true
+      },
+      "verdict": "regenerar (nueva semilla, más control)",
+      "baseline_gate": "review",
+      "worst_colour_part": "dark"
+    },
+    "final": {
+      "scores": {
+        "edge_precision": 0.671,
+        "edge_recall": 0.917,
+        "presence_min": 0.872,
+        "colour_v1_median": 52.47
+      },
+      "fails": 2,
+      "flags": {
+        "edge_precision": true,
+        "edge_recall": false,
+        "presence_min": false,
+        "colour_v1_median": true
+      },
+      "verdict": "regenerar (nueva semilla, más control)",
+      "baseline_gate": "review",
+      "worst_colour_part": "dark"
+    }
   }
 }

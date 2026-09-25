@@ -26,7 +26,14 @@ def main(products):
             spec = json.load(open(os.path.join(ROOT, 'products', product, 'product.json'), encoding='utf-8'))
             passes = os.path.join(ROOT, 'runs', product, 'passes')
             ledger = os.path.join(ROOT, 'runs', product, 'gen', 'ledger.jsonl')
+            # a duplicate generator ran in parallel for a while (2026-09-25): the same image was generated twice and the
+            # later entry wins; those rows keep a note, since their time was measured on a shared GPU
+            entries = {}
             for g in map(json.loads, open(ledger, encoding='utf-8')):
+                k = (g['view'], g['condition'], g['seed'])
+                g['dup'] = k in entries
+                entries[k] = g
+            for g in entries.values():
                 raw, final = os.path.join(ROOT, g['raw']), os.path.join(ROOT, g['final'])
                 gate = qa.check(passes, raw, g['colorway'], spec, final)          # as the pipeline runs it
                 for kind, path in (('raw', raw), ('final', final)):
@@ -43,7 +50,8 @@ def main(products):
                            'parts': parts, 'ocr_text': ocr, 'time_s': round(time.time() - t0, 2),
                            'gen_seconds': g['seconds'], 'cost_usd': 0.0, 'status': 'ok', 'commit': COMMIT,
                            'judges': f'baseline-gate@64caef5 + battery-{VERSION}',
-                           'output': os.path.relpath(path, ROOT).replace(os.sep, '/'), 'note': ''}
+                           'output': os.path.relpath(path, ROOT).replace(os.sep, '/'),
+                           'note': 'generated twice by a duplicate process; gen_seconds taken on a shared GPU' if g['dup'] else ''}
                     log.write(json.dumps(row) + '\n')
                     log.flush()
                     print(rid, gate['verdict'], scores.get('edge_precision'), scores.get('presence_min'),

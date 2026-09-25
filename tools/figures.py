@@ -148,6 +148,30 @@ def detection():
     im.save(os.path.join(OUT, 'detection.png'))
 
 
+def generated():
+    """Phase 2 examples, chosen before looking: seed 1, each product's first view, every strength, raw and finished."""
+    rows, S, T, L = [], 250, 30, 150
+    for p, view in (('vela', 'front'), ('lumen', 'front'), ('field16', 'front')):
+        ledger = [json.loads(l) for l in open(os.path.join(ROOT, 'runs', p, 'gen', 'ledger.jsonl'), encoding='utf-8')]
+        by = {(g['view'], g['condition'], g['seed']): g for g in ledger}
+        rows.append((p, [by[(view, c, 1)] for c in ('full', 'mid', 'loose')]))
+    cols = [(c, k) for c in ('full', 'mid', 'loose') for k in ('raw', 'final')]
+    sheet = Image.new('RGB', (L + S * len(cols), T + (S + T) * len(rows)), SURFACE)
+    d = ImageDraw.Draw(sheet)
+    names = {'full': 'control 1,0', 'mid': 'control 0,75', 'loose': 'control 0,5'}
+    for j, (c, k) in enumerate(cols):
+        d.text((L + j * S + 8, 6), f"{names[c]} · {'crudo' if k == 'raw' else 'con guardas'}", font=font(16, 'Medium'), fill=INK)
+    for i, (p, gens) in enumerate(rows):
+        y = T + i * (S + T)
+        d.text((10, y + S // 2 - 10), p.upper(), font=font(18, 'Medium'), fill=INK)
+        for j, (c, k) in enumerate(cols):
+            g = gens[j // 2]
+            im = Image.open(os.path.join(ROOT, g[k]))
+            w, h = im.size
+            sheet.paste(im.crop((int(w * .12), int(h * .08), int(w * .88), int(h * .92))).resize((S, S), Image.LANCZOS), (L + j * S, y))
+    sheet.save(os.path.join(OUT, 'generated.jpg'), quality=86)
+
+
 def auc_heatmap():
     res = json.load(open(os.path.join(ROOT, 'research', 'results.json'), encoding='utf-8'))['phase1']
     cols = ['gate_verdict', 'edge_precision', 'edge_recall', 'presence_min', 'presence_v2', 'colour_worst_p95',

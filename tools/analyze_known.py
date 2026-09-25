@@ -137,7 +137,9 @@ def main():
                                             sum(r['condition'] == 'perturb/remove' and r['case'] != 'vela' for r in pert)),
               'detection': detection, 'auc': auc, 'expected': expected, 'labels': LABELS, 'names': NAMES,
               'tables': {'detection_md': '\n'.join(md), 'auc_md': '\n'.join(md2)}}
-    out = {'generated_from': f'research/runs.jsonl (rows known-{VERSION}-*)', 'phase0': phase0, 'phase1': phase1}
+    path = os.path.join(ROOT, 'research', 'results.json')
+    out = json.load(open(path, encoding='utf-8')) if os.path.exists(path) else {}   # keep the other phases' keys
+    out.update({'generated_from': 'research/runs.jsonl', 'phase0': phase0, 'phase1': phase1})
     json.dump(out, open(os.path.join(ROOT, 'research', 'results.json'), 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
     print(phase1['tables']['detection_md'])
     print(json.dumps({k: phase0[k] for k in ('n', 'publish', 'review', 'regenerate', 'orange', 'other_colorways')}))

@@ -163,6 +163,89 @@ Mucho control (ControlNet alto y denoise bajo) sostiene el producto, pero la fot
 
 ---
 
+## Propuesta: un nodo gate que vela por la consistencia del producto
+
+> **Conceptual.** Todo lo que el nodo mide ya existe y está medido en este repo (`metrics/battery.py`). Lo que falta es congelar los umbrales con etiquetas humanas (fase 3) y empaquetarlo como custom node de ComfyUI. El ejemplo de abajo usa una imagen real de la fase 2 y **umbrales provisorios**.
+
+### Qué hace
+
+Es un nodo que se pone después de la generación y responde tres preguntas por cada foto:
+
+1. **¿Es el producto?** Mira cinco ejes, cada uno desde los dos lados: lo que el modelo inventó y lo que perdió.
+2. **¿Dónde falla?** Devuelve un overlay con la falla marcada sobre la foto, no solo un número.
+3. **¿Qué hacer?** Devuelve una acción, no solo un puntaje: publicar, aplicar las guardas, regenerar o mandar a revisión humana.
+
+La diferencia con un nodo de similitud común (CLIP, DINO o LPIPS sobre la imagen entera) es que mide **solo dentro del producto, por parte y por eje**, que sabe cuánto varía el producto correcto cuando solo cambia la luz, y que sus umbrales se validan contra juicio humano.
+
+### Entradas y salidas
+
+| | Qué es | De dónde sale |
+|---|---|---|
+| **Entrada:** `image` | La foto a juzgar (cruda o terminada) | KSampler / guardas |
+| **Entrada:** `product` | `product.json`: colores por parte, texto principal, partes protegidas | El spec del producto |
+| **Entrada:** `passes` | Máscara, mapa de partes, depth, normales y render de referencia de esa vista | Blender, desde el CAD |
+| **Entrada:** `view`, `colorway` | Qué cámara y qué versión del producto | El plan de la campaña |
+| **Entrada:** `gate_version` | Los umbrales congelados (v1 después de la fase 3) | `research/` |
+| **Salida:** `verdict` | `publish` · `apply_guards` · `regenerate` · `human_review` | Reglas de abajo |
+| **Salida:** `scores` | Un valor por eje, con la parte que peor sale | JSON |
+| **Salida:** `overlay` | La foto con la falla marcada: bordes inventados en rojo, bordes perdidos en azul, piezas ausentes en naranja | Imagen |
+| **Salida:** `log` | Una línea en `runs.jsonl` con todo lo anterior, la semilla y el costo | Para auditar y recalibrar |
+
+### Qué mide
+
+| Eje | Métrica | Qué ve | Qué no ve |
+|---|---|---|---|
+| Lo inventado | Precisión de bordes contra el render | Botones, grillas, letras o marcas que no existen | Piezas que faltan |
+| Lo deformado o borrado | Recall de bordes | Bordes del producto que se perdieron o se corrieron | Lo agregado |
+| Piezas presentes | Presencia por pieza | Un botón o una tecla que desapareció | Piezas del mismo tono que su entorno |
+| Color | Color por parte, con la luz descontada | Una parte que cambió de tono | Si una luz cálida sobre un cuerpo blanco sigue "siendo blanco" (queda para una persona) |
+| Texto | CER del texto principal | Letras cambiadas, borradas o inventadas | La tipografía |
+
+### Cómo decide
+
+```mermaid
+flowchart LR
+    G[KSampler] --> A{Gate<br/>foto cruda}
+    A -- todo dentro --> P[Publicar]
+    A -- solo color o partes protegidas --> F[Guardas:<br/>color por parte,<br/>detalle, lock exacto]
+    F --> B{Gate<br/>foto terminada}
+    A -- bordes inventados<br/>o perdidos --> R[Regenerar:<br/>nueva semilla,<br/>más control]
+    B -- todo dentro --> P
+    B -- sigue fallando --> R
+    R --> G
+    R -. 3 intentos .-> H[Revisión humana]
+    B -- cerca del umbral --> H
+```
+
+| Si falla… | Acción | Por qué |
+|---|---|---|
+| Solo color, o una parte que el lock cubre (pantalla, logo) | Aplicar guardas y volver a medir | Se arregla sin regenerar |
+| Bordes inventados o perdidos | Regenerar con otra semilla y, si reincide, más control | Las guardas no borran geometría inventada |
+| Pieza ausente | Lock de la pieza si está protegida; si no, regenerar | |
+| Texto principal | Lock exacto de la región del texto | Lo que se puede componer no se genera |
+| Cerca del umbral, o 3 intentos sin pasar | Revisión humana | El gate no decide lo dudoso |
+
+### Un ejemplo real
+
+La foto es LUMEN, de frente, control 0,5, semilla 1, de la fase 2. **Se eligió antes de mirar resultados.** Arriba está la salida cruda del modelo; abajo, la misma foto después de las guardas de From CAD to Shelf. Los umbrales son provisorios: el peor valor que da el producto correcto bajo las cuatro luces.
+
+![El gate sobre una foto real: salida cruda y después de las guardas](img/gate_example.png)
+
+**Qué dice.**
+- **Salida cruda:** falla en {{gate_example.raw.fails}} de 4 ejes. Precisión de bordes {{gate_example.raw.scores.edge_precision}}, contra ≥ {{gate_example.envelope.edge_precision|.3g}} del producto correcto. El overlay muestra en rojo dónde inventó: texto bajo la pantalla, una cruceta con relieve distinto y un parlante con otro patrón.
+- **Después de las guardas:** falla en {{gate_example.final.fails}}. Recuperó la pantalla, los colores y las piezas, pero la precisión de bordes sigue baja ({{gate_example.final.scores.edge_precision}}), y el color por parte marca los agujeros del parlante. El modelo los dibujó en otro lugar y las guardas no los corrigen, porque el parlante no es una parte protegida.
+- **Acción:** regenerar. Las guardas no pueden arreglar esta foto.
+- **El gate actual**, sobre este mismo par, dijo *{{gate_example.final.baseline_gate}}*. Lo mandó a revisión, pero por el color naranja (su sesgo documentado en la fase 0), sin saber qué falla ni dónde.
+
+### Qué falta para que exista
+
+1. **Umbrales congelados (fase 3).** Tus etiquetas a ciegas definen dónde está "publicable". Se calibra con LUMEN y se evalúa con FIELD 16 y VELA.
+2. **Empaquetarlo como custom node.** El código de medición ya corre por fuera de ComfyUI. Hace falta envolverlo en un nodo, con los pases del producto como entrada.
+3. **Una regla para "cerca del umbral".** Se define junto con los umbrales, a partir de las imágenes que etiquetaste como dudosas.
+4. **Sin CAD, otra cosa.** Todo depende de tener el render de referencia de la misma vista. Con solo una foto del producto hace falta alinear primero (el registro de la condición B3). Queda para el Estudio B.
+
+---
+
 ## 1. Pregunta
 
 Un modelo generativo produce muy bien *una* imagen linda y mal *la segunda*: otro ángulo, otra escena u otra edición, y el producto cambia. Para una campaña, un catálogo o un sistema de diseño eso es fatal, porque todas las piezas tienen que mostrar el mismo objeto.
