@@ -24,28 +24,28 @@ Los tres son inventados y se construyen en código, así la geometría es exacta
 
 ### Fase 0: el gate actual ante el producto correcto bajo otra luz
 
-**Qué se hizo.** Se renderizaron 48 imágenes del producto correcto: 3 productos × 2 vistas × 2 colorways × 4 luces de estudio (studio, courtyard, interior y sunset, que son HDRI de Blender). Se juzgaron con el gate de From CAD to Shelf (`qa.check`, sin modificar). Como el producto es correcto en todas, la respuesta correcta es siempre *publish*.
+**Qué se hizo.** Se renderizaron {{phase0.n}} imágenes del producto correcto: 3 productos × 2 vistas × 2 colorways × 4 luces de estudio (studio, courtyard, interior y sunset, que son HDRI de Blender). Se juzgaron con el gate de From CAD to Shelf (`qa.check`, sin modificar). Como el producto es correcto en todas, la respuesta correcta es siempre *publish*.
 
-**Resultado.** El gate publicó **23 de 48**: mandó 18 a revisión y 7 a regenerar.
+**Resultado.** El gate publicó **{{phase0.publish}} de {{phase0.n}}**: mandó {{phase0.review}} a revisión y {{phase0.regenerate}} a regenerar.
 
 | Luz | Publicadas |
 |---|---|
-| studio (la luz de la referencia) | 8 / 12 |
-| courtyard | 7 / 12 |
-| interior | 2 / 12 |
-| sunset | 6 / 12 |
+| studio (la luz de la referencia) | {{phase0.by_light.studio.n}} / {{phase0.by_light.studio.of}} |
+| courtyard | {{phase0.by_light.courtyard.n}} / {{phase0.by_light.courtyard.of}} |
+| interior | {{phase0.by_light.interior.n}} / {{phase0.by_light.interior.of}} |
+| sunset | {{phase0.by_light.sunset.n}} / {{phase0.by_light.sunset.of}} |
 
 ![El gate actual sobre el producto correcto bajo cuatro luces](img/variation.jpg)
 
 **Lectura.**
-- **El color naranja nunca pasa.** Los renders signal-orange se publicaron 0 de 16 veces; los demás colorways, 23 de 32. Pasa incluso con la luz de la propia referencia: el color de los naranjas en studio queda entre 5.6 y 8.3 ΔE, por encima del umbral de 5. El gate compara contra el color del spec, y el tone mapping del render (AgX) desatura el naranja. La nota de From CAD to Shelf ya lo mencionaba, pero el umbral no lo contempla.
-- **"Partes" no mide la foto.** Con la luz de la referencia da como máximo 0.0, porque compara la imagen consigo misma. Con otra luz llega a 26.7. En el pipeline se mide después de volver a pegar las partes desde el render, así que mide el pegado. Además, como incluye la luminosidad, la dispara cualquier cambio de luz.
+- **El color naranja nunca pasa.** Los renders signal-orange se publicaron {{phase0.orange.n}} de {{phase0.orange.of}} veces; los demás colorways, {{phase0.other_colorways.n}} de {{phase0.other_colorways.of}}. Pasa incluso con la luz de la propia referencia: el color de los naranjas en studio queda entre {{phase0.studio_orange_colour.min}} y {{phase0.studio_orange_colour.max}} ΔE, por encima del umbral de 5. El gate compara contra el color del spec, y el tone mapping del render (AgX) desatura el naranja. La nota de From CAD to Shelf ya lo mencionaba, pero el umbral no lo contempla.
+- **"Partes" no mide la foto.** Con la luz de la referencia da como máximo {{phase0.parts_studio_max}}, porque compara la imagen consigo misma. Con otra luz llega a {{phase0.parts_max}}. En el pipeline se mide después de volver a pegar las partes desde el render, así que mide el pegado. Además, como incluye la luminosidad, la dispara cualquier cambio de luz.
 
 **Límites.** Son renders, no fotos generadas: miden cuántos falsos rechazos provoca la luz sola. Que el producto es correcto está garantizado por construcción, pero una persona podría rechazar una imagen muy teñida por la luz (VELA Paper bajo *interior*). Eso lo va a decidir el etiquetado. La HDRI llamada *sunset* deja el render más frío, no más cálido.
 
 ### Fase 1: qué ve cada métrica
 
-**Qué se hizo.** A cada render de referencia se le aplicó una falla conocida (146 imágenes en total), o un cambio que no debería contar como falla:
+**Qué se hizo.** A cada render de referencia se le aplicó una falla conocida ({{phase1.n_perturb}} imágenes en total), o un cambio que no debería contar como falla:
 
 - **Fallas:** parte inventada, parte faltante, texto borrado, typo en la pantalla de VELA, warp y corrimiento de color.
 - **Cambios legítimos:** otro fondo, otro balance de blancos y compresión JPEG.
@@ -58,29 +58,16 @@ Cada imagen se midió con el gate actual y con la batería por región v0 (`metr
 
 ![Qué ve cada juez](img/detection.png)
 
-| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Color p95 | DreamSim | CER (texto) |
-|---|---|---|---|---|---|---|---|
-| Parte inventada | sí | 4/12 | 11/12 | 0/12 | 1/12 | 0/12 | 0/4 |
-| Parte faltante | sí | 4/12 | 2/12 | 2/12 | 6/12 | 3/12 | 0/4 |
-| Texto borrado | sí | 4/12 | 7/12 | 2/12 | 0/12 | 0/12 | 4/4 |
-| Typo ("Messagas") | sí | 0/2 | 2/2 | 1/2 | 0/2 | 0/2 | 2/2 |
-| Warp 10 % | sí | 6/12 | 12/12 | 12/12 | 8/12 | 4/12 | 0/4 |
-| Warp 25 % | sí | 7/12 | 12/12 | 12/12 | 8/12 | 9/12 | 0/4 |
-| Color +10 | sí | 11/12 | 1/12 | 0/12 | 2/12 | 3/12 | 0/4 |
-| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 1/12 | 0/4 |
-| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |
-| Otro fondo | no | 4/12 | 2/12 | 0/12 | 0/12 | 0/12 | 0/4 |
-| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 7/12 | 4/12 | 0/4 |
-| JPEG calidad 35 | no | 4/12 | 1/12 | 2/12 | 7/12 | 1/12 | 3/4 |
+{{phase1.tables.detection_md}}
 
 > n = 12 por celda (3 productos × 2 vistas × 2 colorways). El typo solo existe en VELA de frente (n = 2), y el CER solo se mide en VELA (n = 4). Datos: filas `known-*` de `research/runs.jsonl`. Hardware: RTX 2060 6 GB.
 
 **Lectura.**
-- **El gate actual rechaza por colorway, no por falla.** En parte inventada, parte faltante, otro fondo, JPEG y color +2, fuera del naranja rechazó 0 de 40 imágenes, y en el naranja 20 de 20. Sobre todas las imágenes correctas (variación y cambios legítimos) rechazó 53 de 108. Lo único que detecta de verdad es el corrimiento fuerte de color (11/12).
-- **La precisión de bordes es la métrica nueva más fuerte.** Detecta la parte inventada (11/12), el typo (2/2) y todos los warps, con pocas falsas alarmas en los cambios legítimos (otro fondo 2/12, JPEG 1/12). Es lo que el gate actual no veía.
-- **El CER detecta el texto roto** (texto borrado 4/4, typo 2/2), pero también marca la compresión JPEG (3/4). La luz no cambia la lectura, así que la envolvente queda demasiado estrecha: hace falta un margen mínimo.
-- **El color por parte todavía no sirve.** La luz mueve el color más que un corrimiento de 10, así que la falla queda dentro de la envolvente (color +10: 2/12), y el balance de blancos da falsas alarmas (7/12). Hay que normalizar la luz antes de medir el color.
-- **La parte faltante es la falla más difícil.** Borrar un botón chico casi no cambia los bordes. Lo que mejor la ve es el color por parte (6/12). Falta una métrica de presencia por parte.
+- **El gate actual rechaza por colorway, no por falla.** En parte inventada, parte faltante, otro fondo, JPEG y color +2, fuera del naranja rechazó {{phase1.gate_quiet.other.n}} de {{phase1.gate_quiet.other.of}} imágenes, y en el naranja {{phase1.gate_quiet.orange.n}} de {{phase1.gate_quiet.orange.of}}. Sobre todas las imágenes correctas (variación y cambios legítimos) rechazó {{phase1.gate_false_rejections.n}} de {{phase1.gate_false_rejections.of}}. Lo único que detecta de verdad es el corrimiento fuerte de color ({{phase1.detection.hue10.gate_verdict.n}}/{{phase1.detection.hue10.gate_verdict.of}}).
+- **La precisión de bordes es la métrica nueva más fuerte.** Detecta la parte inventada ({{phase1.detection.invent.edge_precision.n}}/{{phase1.detection.invent.edge_precision.of}}), el typo ({{phase1.detection.typo.edge_precision.n}}/{{phase1.detection.typo.edge_precision.of}}) y todos los warps, con pocas falsas alarmas en los cambios legítimos (otro fondo {{phase1.detection.background.edge_precision.n}}/{{phase1.detection.background.edge_precision.of}}, JPEG {{phase1.detection.jpeg.edge_precision.n}}/{{phase1.detection.jpeg.edge_precision.of}}). Es lo que el gate actual no veía.
+- **El CER detecta el texto roto** (texto borrado {{phase1.detection.erasetext.cer_worst.n}}/{{phase1.detection.erasetext.cer_worst.of}}, typo {{phase1.detection.typo.cer_worst.n}}/{{phase1.detection.typo.cer_worst.of}}), pero también marca la compresión JPEG ({{phase1.detection.jpeg.cer_worst.n}}/{{phase1.detection.jpeg.cer_worst.of}}). La luz no cambia la lectura, así que la envolvente queda demasiado estrecha: hace falta un margen mínimo.
+- **El color por parte todavía no sirve.** La luz mueve el color más que un corrimiento de 10, así que la falla queda dentro de la envolvente (color +10: {{phase1.detection.hue10.colour_worst_p95.n}}/{{phase1.detection.hue10.colour_worst_p95.of}}), y el balance de blancos da falsas alarmas ({{phase1.detection.whitebalance.colour_worst_p95.n}}/{{phase1.detection.whitebalance.colour_worst_p95.of}}). Hay que normalizar la luz antes de medir el color.
+- **La parte faltante es la falla más difícil.** Borrar un botón chico casi no cambia los bordes. Lo que mejor la ve es el color por parte ({{phase1.detection.remove.colour_worst_p95.n}}/{{phase1.detection.remove.colour_worst_p95.of}}). Falta una métrica de presencia por parte.
 - **DINOv2 y DreamSim solo ven cambios grandes**, como los warps. En defectos chicos no alcanzan, igual que decía la literatura.
 
 **Límites.**

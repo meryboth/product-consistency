@@ -1,0 +1,740 @@
+{
+  "generated_from": "research/runs.jsonl (rows known-*)",
+  "phase0": {
+    "n": 48,
+    "publish": 23,
+    "review": 18,
+    "regenerate": 7,
+    "not_publish": 25,
+    "orange": {
+      "n": 0,
+      "of": 16,
+      "rate": 0.0
+    },
+    "other_colorways": {
+      "n": 23,
+      "of": 32,
+      "rate": 0.719
+    },
+    "by_light": {
+      "courtyard": {
+        "n": 7,
+        "of": 12,
+        "rate": 0.583
+      },
+      "interior": {
+        "n": 2,
+        "of": 12,
+        "rate": 0.167
+      },
+      "studio": {
+        "n": 8,
+        "of": 12,
+        "rate": 0.667
+      },
+      "sunset": {
+        "n": 6,
+        "of": 12,
+        "rate": 0.5
+      }
+    },
+    "studio_orange_colour": {
+      "min": 5.6,
+      "max": 8.3,
+      "n": 4
+    },
+    "parts_max": 26.7,
+    "parts_studio_max": 0.0
+  },
+  "phase1": {
+    "n_known": 194,
+    "n_perturb": 146,
+    "n_right": 108,
+    "gate_false_rejections": {
+      "n": 53,
+      "of": 108,
+      "rate": 0.491
+    },
+    "gate_quiet": {
+      "orange": {
+        "n": 20,
+        "of": 20,
+        "rate": 1.0
+      },
+      "other": {
+        "n": 0,
+        "of": 40,
+        "rate": 0.0
+      }
+    },
+    "detection": {
+      "invent": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 11,
+          "of": 12,
+          "rate": 0.917
+        },
+        "edge_recall": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_p95": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "colour_worst_out": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "remove": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "edge_recall": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "colour_worst_p95": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "colour_worst_out": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "erasetext": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "edge_recall": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "colour_worst_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_out": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "dino_cos": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
+        "dreamsim": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "cer_worst": {
+          "n": 4,
+          "of": 4,
+          "rate": 1.0
+        }
+      },
+      "typo": {
+        "gate_verdict": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "gate_colour": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 2,
+          "of": 2,
+          "rate": 1.0
+        },
+        "edge_recall": {
+          "n": 1,
+          "of": 2,
+          "rate": 0.5
+        },
+        "colour_worst_p95": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "colour_worst_out": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "dino_cos": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "dreamsim": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "cer_worst": {
+          "n": 2,
+          "of": 2,
+          "rate": 1.0
+        }
+      },
+      "warp10": {
+        "gate_verdict": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "gate_colour": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 12,
+          "of": 12,
+          "rate": 1.0
+        },
+        "edge_recall": {
+          "n": 12,
+          "of": 12,
+          "rate": 1.0
+        },
+        "colour_worst_p95": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "colour_worst_out": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "dino_cos": {
+          "n": 10,
+          "of": 12,
+          "rate": 0.833
+        },
+        "dreamsim": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "warp25": {
+        "gate_verdict": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "gate_colour": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
+        "gate_parts": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "edge_precision": {
+          "n": 12,
+          "of": 12,
+          "rate": 1.0
+        },
+        "edge_recall": {
+          "n": 12,
+          "of": 12,
+          "rate": 1.0
+        },
+        "colour_worst_p95": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "colour_worst_out": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "dino_cos": {
+          "n": 11,
+          "of": 12,
+          "rate": 0.917
+        },
+        "dreamsim": {
+          "n": 9,
+          "of": 12,
+          "rate": 0.75
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "hue10": {
+        "gate_verdict": {
+          "n": 11,
+          "of": 12,
+          "rate": 0.917
+        },
+        "gate_colour": {
+          "n": 9,
+          "of": 12,
+          "rate": 0.75
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "edge_recall": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_p95": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "colour_worst_out": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "hue5": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "edge_recall": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_out": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "hue2": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "edge_recall": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_out": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "background": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "edge_recall": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_out": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "dino_cos": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "dreamsim": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "whitebalance": {
+        "gate_verdict": {
+          "n": 12,
+          "of": 12,
+          "rate": 1.0
+        },
+        "gate_colour": {
+          "n": 5,
+          "of": 12,
+          "rate": 0.417
+        },
+        "gate_parts": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "edge_precision": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "edge_recall": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_worst_p95": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "colour_worst_out": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      },
+      "jpeg": {
+        "gate_verdict": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "gate_colour": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "gate_parts": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "edge_precision": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "edge_recall": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "colour_worst_p95": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "colour_worst_out": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "dino_cos": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "dreamsim": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "cer_worst": {
+          "n": 3,
+          "of": 4,
+          "rate": 0.75
+        }
+      }
+    },
+    "expected": {
+      "invent": "fail",
+      "remove": "fail",
+      "erasetext": "fail",
+      "typo": "fail",
+      "warp10": "fail",
+      "warp25": "fail",
+      "hue10": "fail",
+      "hue5": "border",
+      "hue2": "pass",
+      "background": "pass",
+      "whitebalance": "pass",
+      "jpeg": "pass"
+    },
+    "labels": {
+      "gate_verdict": "Gate actual (veredicto)",
+      "gate_colour": "Gate: color",
+      "gate_parts": "Gate: partes",
+      "edge_precision": "Precisión de bordes",
+      "edge_recall": "Recall de bordes",
+      "colour_worst_p95": "Color p95",
+      "colour_worst_out": "Color fuera de tol.",
+      "dino_cos": "DINOv2",
+      "dreamsim": "DreamSim",
+      "cer_worst": "CER (texto)"
+    },
+    "names": {
+      "invent": "Parte inventada",
+      "remove": "Parte faltante",
+      "erasetext": "Texto borrado",
+      "typo": "Typo (\"Messagas\")",
+      "warp10": "Warp 10 %",
+      "warp25": "Warp 25 %",
+      "hue10": "Color +10",
+      "hue5": "Color +5",
+      "hue2": "Color +2",
+      "background": "Otro fondo",
+      "whitebalance": "Balance de blancos",
+      "jpeg": "JPEG calidad 35"
+    },
+    "tables": {
+      "detection_md": "| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Color p95 | DreamSim | CER (texto) |\n|---|---|---|---|---|---|---|---|\n| Parte inventada | sí | 4/12 | 11/12 | 0/12 | 1/12 | 0/12 | 0/4 |\n| Parte faltante | sí | 4/12 | 2/12 | 2/12 | 6/12 | 3/12 | 0/4 |\n| Texto borrado | sí | 4/12 | 7/12 | 2/12 | 0/12 | 0/12 | 4/4 |\n| Typo (\"Messagas\") | sí | 0/2 | 2/2 | 1/2 | 0/2 | 0/2 | 2/2 |\n| Warp 10 % | sí | 6/12 | 12/12 | 12/12 | 8/12 | 4/12 | 0/4 |\n| Warp 25 % | sí | 7/12 | 12/12 | 12/12 | 8/12 | 9/12 | 0/4 |\n| Color +10 | sí | 11/12 | 1/12 | 0/12 | 2/12 | 3/12 | 0/4 |\n| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 1/12 | 0/4 |\n| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Otro fondo | no | 4/12 | 2/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 7/12 | 4/12 | 0/4 |\n| JPEG calidad 35 | no | 4/12 | 1/12 | 2/12 | 7/12 | 1/12 | 3/4 |"
+    }
+  }
+}

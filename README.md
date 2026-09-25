@@ -4,13 +4,13 @@ Research on keeping a product the same across a generative design workflow, and 
 
 Follows [From CAD to Shelf](https://github.com/meryboth/from-cad-to-shelf): its pipeline, its gate and its two products are the starting point and the baseline.
 
-> Status: phase 0 done (products, passes, real-variation baseline). Study A starts next.
+> Status: phases 0 and 1 done. Results so far: [`research/INFORME.md`](research/INFORME.md).
 
 ## Research
 
 | File | What it is |
 |---|---|
-| [`research/INFORME.md`](research/INFORME.md) | State of the art, starting point and experiment design (Spanish) |
+| [`research/INFORME.md`](research/INFORME.md) | **Results so far**, state of the art and experiment design (Spanish). Generated from `INFORME.template.md` + `results.json` |
 | [`research/PROTOCOL.md`](research/PROTOCOL.md) | The formal protocol, frozen before the first run |
 | [`research/LITERATURE.md`](research/LITERATURE.md) | Every source, with verified links |
 | [`research/P3_INSPIRACION.md`](research/P3_INSPIRACION.md) | Design research and decision for the third product, VELA |

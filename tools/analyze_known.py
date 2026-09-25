@@ -1,48 +1,72 @@
-# Phase 1 analysis: which metric sees which fault, without picking a threshold by eye.
-# For every (product, view, colorway), the four real-variation lights give each metric an envelope: the worst value
-# the right product reaches when only the light changes. A perturbed image counts as "detected" by a metric when its
-# value falls outside that envelope in the bad direction. The baseline gate is scored by its own verdict (not publish).
-# Usage: py tools/analyze_known.py  ->  research/results_known.json, and a table on stdout
+# Phases 0-1 analysis: everything measured on images whose answer is known, written to research/results.json,
+# the only source of numbers for the report (research/INFORME.template.md -> INFORME.md).
+#   phase0  the baseline gate on the real-variation renders (the right product under four lights)
+#   phase1  which metric sees which fault, without a threshold picked by eye: for every (product, view, colorway),
+#           the four lights give each metric an envelope, the worst value the right product reaches when only the
+#           light changes; a perturbed image is "detected" when it falls outside it in the bad direction.
+# Usage: py tools/analyze_known.py
 import json
 import os
-import statistics
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UP = {'edge_precision', 'edge_recall', 'edge_f1', 'dino_cos'}
 METRICS = ['gate_colour', 'gate_parts', 'edge_precision', 'edge_recall', 'colour_worst_p95', 'colour_worst_out',
-           'dino_cos', 'dreamsim', 'cer_worst', 'words_extra']
-ORDER = ['hue2', 'hue5', 'hue10', 'invent', 'remove', 'erasetext', 'typo', 'warp10', 'warp25',
+           'dino_cos', 'dreamsim', 'cer_worst']
+LABELS = {'gate_verdict': 'Gate actual (veredicto)', 'gate_colour': 'Gate: color', 'gate_parts': 'Gate: partes',
+          'edge_precision': 'Precisión de bordes', 'edge_recall': 'Recall de bordes', 'colour_worst_p95': 'Color p95',
+          'colour_worst_out': 'Color fuera de tol.', 'dino_cos': 'DINOv2', 'dreamsim': 'DreamSim', 'cer_worst': 'CER (texto)'}
+ORDER = ['invent', 'remove', 'erasetext', 'typo', 'warp10', 'warp25', 'hue10', 'hue5', 'hue2',
          'background', 'whitebalance', 'jpeg']
+NAMES = {'invent': 'Parte inventada', 'remove': 'Parte faltante', 'erasetext': 'Texto borrado', 'typo': 'Typo ("Messagas")',
+         'warp10': 'Warp 10 %', 'warp25': 'Warp 25 %', 'hue10': 'Color +10', 'hue5': 'Color +5', 'hue2': 'Color +2',
+         'background': 'Otro fondo', 'whitebalance': 'Balance de blancos', 'jpeg': 'JPEG calidad 35'}
+EXPECTED = {'pass': 'no', 'fail': 'sí', 'border': 'borde'}
 
 
 def worse(m, a, b):
-    """True when a is worse than b for metric m."""
     return a < b if m in UP else a > b
+
+
+def rate(ok, n):
+    return {'n': ok, 'of': n, 'rate': round(ok / n, 3) if n else None}
 
 
 def main():
     rows = [json.loads(l) for l in open(os.path.join(ROOT, 'research', 'runs.jsonl'), encoding='utf-8')]
     rows = [r for r in rows if r.get('id', '').startswith('known-')]
     key = lambda r: (r['case'], r['view'], r['colorway'])
+    var = [r for r in rows if r['source'] == 'variation']
+    pert = [r for r in rows if r['source'] == 'perturb']
+
+    # ---------- phase 0: the baseline gate on the right product under four lights ----------
+    verdicts = Counter(r['gate_verdict'] for r in var)
+    orange = [r for r in var if r['colorway'] == 'signal-orange']
+    rest = [r for r in var if r['colorway'] != 'signal-orange']
+    by_light = {}
+    for light in sorted({r['condition'].split('/')[1] for r in var}):
+        rs = [r for r in var if r['condition'] == f'light/{light}']
+        by_light[light] = rate(sum(r['gate_verdict'] == 'publish' for r in rs), len(rs))
+    studio_orange = [r['metrics']['gate_colour'] for r in orange if r['condition'] == 'light/studio']
+    phase0 = {'n': len(var), 'publish': verdicts['publish'], 'review': verdicts['review'], 'regenerate': verdicts['regenerate'],
+              'not_publish': len(var) - verdicts['publish'],
+              'orange': rate(sum(r['gate_verdict'] == 'publish' for r in orange), len(orange)),
+              'other_colorways': rate(sum(r['gate_verdict'] == 'publish' for r in rest), len(rest)),
+              'by_light': by_light,
+              'studio_orange_colour': {'min': min(studio_orange), 'max': max(studio_orange), 'n': len(studio_orange)},
+              'parts_max': max(r['metrics']['gate_parts'] for r in var),
+              'parts_studio_max': max(r['metrics']['gate_parts'] for r in var if r['condition'] == 'light/studio')}
+
+    # ---------- phase 1: detection against the real-variation envelope ----------
     envelope = defaultdict(dict)
-    for r in rows:
-        if r['source'] != 'variation':
-            continue
+    for r in var:
         for m in METRICS:
             v = r['metrics'].get(m)
-            if v is None:
-                continue
-            cur = envelope[key(r)].get(m)
-            envelope[key(r)][m] = v if cur is None or worse(m, v, cur) else cur
-    # the gate's false rejections on images that are right (variation and the "pass" perturbations)
-    right = [r for r in rows if r['expected'] == 'pass']
-    gate_false = sum(r['gate_verdict'] != 'publish' for r in right)
-    # detection per perturbation x metric
+            if v is not None:
+                cur = envelope[key(r)].get(m)
+                envelope[key(r)][m] = v if cur is None or worse(m, v, cur) else cur
     table = defaultdict(lambda: defaultdict(list))
-    for r in rows:
-        if r['source'] != 'perturb':
-            continue
+    for r in pert:
         p = r['condition'].split('/')[1]
         if p == 'none':
             continue
@@ -51,23 +75,29 @@ def main():
             v, e = r['metrics'].get(m), envelope[key(r)].get(m)
             if v is not None and e is not None:
                 table[p][m].append(worse(m, v, e))
-    result = {'n_rows': len(rows), 'n_right': len(right),
-              'gate_false_rejections': {'n': gate_false, 'of': len(right)},
-              'envelope_note': 'worst value over 4 studio lights of the correct render, per product/view/colorway',
-              'detection': {p: {m: {'detected': sum(v), 'n': len(v)} for m, v in table[p].items()} for p in ORDER if p in table},
-              'expected': {p: next(r['expected'] for r in rows if r['condition'] == f'perturb/{p}') for p in ORDER if p in table}}
-    json.dump(result, open(os.path.join(ROOT, 'research', 'results_known.json'), 'w'), indent=2)
-    cols = ['gate_verdict'] + METRICS
-    print(f"gate false rejections on right images: {gate_false}/{len(right)}")
-    print('perturbation'.ljust(14), 'exp'.ljust(7), ' '.join(c[:11].rjust(11) for c in cols))
-    for p in ORDER:
-        if p not in table:
-            continue
-        cells = []
-        for c in cols:
-            v = table[p].get(c, [])
-            cells.append(f'{sum(v)}/{len(v)}'.rjust(11) if v else '—'.rjust(11))
-        print(p.ljust(14), result['expected'][p].ljust(7), ' '.join(cells))
+    detection = {p: {m: rate(sum(v), len(v)) for m, v in table[p].items()} for p in ORDER if p in table}
+    expected = {p: next(r['expected'] for r in pert if r['condition'] == f'perturb/{p}') for p in detection}
+    # the gate's rejections on faults it should not care about, outside the orange colorway
+    quiet = [r for r in pert if r['condition'].split('/')[1] in ('invent', 'remove', 'background', 'jpeg', 'hue2')]
+    right = [r for r in rows if r['expected'] == 'pass']
+    cols = ['gate_verdict', 'edge_precision', 'edge_recall', 'colour_worst_p95', 'dreamsim', 'cer_worst']
+    md = ['| Perturbación | ¿Debería fallar? | ' + ' | '.join(LABELS[c] for c in cols) + ' |',
+          '|---|---|' + '---|' * len(cols)]
+    for p in detection:
+        cells = [f"{detection[p][c]['n']}/{detection[p][c]['of']}" if c in detection[p] else '—' for c in cols]
+        md.append(f'| {NAMES[p]} | {EXPECTED[expected[p]]} | ' + ' | '.join(cells) + ' |')
+    phase1 = {'n_known': len(rows), 'n_perturb': len(pert), 'n_right': len(right),
+              'gate_false_rejections': rate(sum(r['gate_verdict'] != 'publish' for r in right), len(right)),
+              'gate_quiet': {'orange': rate(sum(r['gate_verdict'] != 'publish' for r in quiet if r['colorway'] == 'signal-orange'),
+                                            sum(r['colorway'] == 'signal-orange' for r in quiet)),
+                             'other': rate(sum(r['gate_verdict'] != 'publish' for r in quiet if r['colorway'] != 'signal-orange'),
+                                           sum(r['colorway'] != 'signal-orange' for r in quiet))},
+              'detection': detection, 'expected': expected, 'labels': LABELS, 'names': NAMES,
+              'tables': {'detection_md': '\n'.join(md)}}
+    out = {'generated_from': 'research/runs.jsonl (rows known-*)', 'phase0': phase0, 'phase1': phase1}
+    json.dump(out, open(os.path.join(ROOT, 'research', 'results.json'), 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
+    print(phase1['tables']['detection_md'])
+    print(json.dumps({k: phase0[k] for k in ('n', 'publish', 'review', 'regenerate', 'orange', 'other_colorways')}))
 
 
 if __name__ == '__main__':
