@@ -58,9 +58,9 @@ Todas las condiciones usan las mismas vistas, escenas y semillas. Solo varía lo
 |---|---|---|
 | LUMEN | Típico; partes chicas y especulares | Calibración |
 | FIELD 16 | Otra forma; banda de color expuesta a la luz lateral | Evaluación |
-| P3: envase con etiqueta impresa [DECIDIR: lata, frasco o caja] | Elegido para romper: curvo, especular, mucho texto | Evaluación |
+| P3: VELA V-43, celular e-ink "low attention", inventado (`fixtures/vela`) | Elegido para romper: pantalla con 10 líneas de texto (OCR), 3 teclas chicas, interruptor en el canto, serigrafía de 1,5 mm en la espalda, anillo de aluminio pulido | Evaluación |
 
-Vistas por producto: front y right. Escenas: studio-paper y concrete-desk (brand meridian).
+Vistas: LUMEN y FIELD 16 usan front y right; VELA usa front y back (155°, 16°), porque el texto impreso está en la espalda. Escenas: studio-paper y concrete-desk (brand meridian).
 
 ## 5. Métricas
 
@@ -76,7 +76,7 @@ Salvo que se indique otra cosa, todas se calculan dentro de `mask.png` del pase 
 | Fuera de tolerancia | Fracción de píxeles de la parte con ΔC·ΔH > umbral | 0–1 | ↓ | Manchas locales que la mediana esconde | — |
 | Identidad DINOv2 | Coseno CLS de DINOv2 ViT-B/14 entre la foto y el render, ambos con máscara sobre gris (200,200,198) | −1..1 | ↑ | Identidad global | Detalle chico → bordes, CER |
 | Identidad DreamSim | Distancia DreamSim (ensamble por defecto) entre los mismos recortes | 0..1 | ↓ | Similitud percibida | Texto → CER |
-| CER (P3) | Levenshtein(OCR, copy del spec) / longitud del copy, por línea; OCR [DECIDIR: PaddleOCR o docTR] | 0..1+ | ↓ | Texto mal, faltante o inventado | Tipografía |
+| CER (P3) | Levenshtein(OCR, línea de `product.json → text`) / longitud de la línea, emparejando cada línea con la mejor detección; OCR [DECIDIR: PaddleOCR o docTR]. Se reporta por separado para la salida cruda y para la foto terminada (en el grafo local la pantalla se copia exacta, así que su CER terminado es ≈ 0 por construcción) | 0..1+ | ↓ | Texto mal, faltante o inventado | Tipografía |
 | Deriva multi-turn | DreamSim en el turno k contra el render original | 0..1 | ↓ | Deriva acumulada | — |
 | Realismo | 2AFC humano a ciegas: "¿cuál parece una foto real?" | % de victorias | ↑ | Integración y luz | — |
 | Costo por aprobada | USD del ledger (incluye descartes) / imágenes aprobadas por el gate v1 | USD | ↓ | — | — |
@@ -98,7 +98,10 @@ El juicio de cada juez es "sirve / no sirve" por imagen. Cómo se combinan las m
 - **Línea base real:** las métricas se calculan entre renders buenos del mismo producto con 3 iluminaciones. Se reporta el rango.
 - **Calibración:** todas las imágenes de LUMEN (≈ 100 locales + perturbaciones).
 - **Evaluación:** FIELD 16 + P3. **No se miran** hasta congelar v1.
-- **Etiquetado:** Marilyn + [DECIDIR: 1 o 2 personas], a ciegas respecto de la condición y de las métricas, con una herramienta de etiquetado que muestra las imágenes en orden aleatorio. Checklist por atributo (forma/partes, color, texto, "sirve") + ≈ 150 tripletes 2AFC. κ entre personas.
+- **Etiquetas automáticas por construcción:** en las perturbaciones, la respuesta correcta se conoce porque la falla se inyecta. Se usan para H2 y para las curvas dosis-respuesta, sin intervención humana.
+- **Etiquetado humano:** solo Marilyn, a ciegas respecto de la condición y de las métricas, con una página local de etiquetado que muestra las imágenes en orden aleatorio y se opera con teclado. Checklist por atributo (forma/partes, color, texto, "sirve") + ≈ 150 tripletes 2AFC.
+- **Techo de acuerdo:** con una sola anotadora no se puede calcular el κ entre personas. Se usa **test-retest**: un 20 % elegido al azar se vuelve a etiquetar, a ciegas, al menos 3 días después, y se reporta el κ intra-anotadora como techo.
+- El juez VLM **no** sirve como fuente de etiquetas: es uno de los jueces evaluados, y usarlo como verdad sería circular.
 - **Gate v1:** congelado el <fecha> con hash de commit, antes de abrir el set de evaluación.
 
 ## 8. Presupuesto
@@ -124,3 +127,5 @@ Toda corrida paga necesita la aprobación explícita de Marilyn antes de lanzars
 | Fecha | Qué cambió | Por qué | ¿Se decidió antes o después de ver resultados? |
 |---|---|---|---|
 | 2026-09-25 | La investigación pasa a un repo nuevo (antes se pensaba como continuación de from-cad-to-shelf) | Pedido de Marilyn | Antes |
+| 2026-09-25 | P3 pasa a ser un celular e-ink inventado (antes, un envase con etiqueta) | Pedido de Marilyn. Sigue siendo exigente en texto (pantalla con UI de texto), pero pierde lo curvo y especular: puede sumarse una tapa trasera brillante | Antes |
+| 2026-09-25 | Una sola anotadora, con test-retest como techo, en lugar de κ entre 2–3 personas | Recursos disponibles | Antes |

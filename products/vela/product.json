@@ -1,0 +1,162 @@
+{
+  "name": "VELA",
+  "code": "V-43",
+  "year": "2026",
+  "category": "e-ink phone",
+  "fictional": true,
+  "size_mm": [
+    66,
+    124,
+    10.5
+  ],
+  "facts": [
+    "A low-attention phone with a 4.3 inch e-ink screen",
+    "A text-only home screen: calls, messages, notes",
+    "Three keys under the screen: back, select, forward",
+    "A focus switch on the top edge",
+    "One camera with an aluminium ring on the back",
+    "Two colorways: Graphite and Paper"
+  ],
+  "hero_material": "body",
+  "protected_materials": [
+    "screen",
+    "gasket",
+    "keys",
+    "glyph",
+    "accent",
+    "ring",
+    "lens",
+    "flash",
+    "print",
+    "engrave"
+  ],
+  "exact_materials": [
+    "screen",
+    "glyph",
+    "print",
+    "lens"
+  ],
+  "text": {
+    "screen": [
+      "82%",
+      "09:41",
+      "Thursday, September 25",
+      "Calls",
+      "Messages 2",
+      "Notes",
+      "Calendar",
+      "Alarm 07:30",
+      "Settings",
+      "Focus mode · 3h 20m"
+    ],
+    "back": [
+      "VELA",
+      "MODEL V-43 · E-INK 4.3\"",
+      "DESIGNED FOR LESS"
+    ]
+  },
+  "passes": {
+    "views": {
+      "front": [
+        0,
+        4
+      ],
+      "back": [
+        155,
+        16
+      ]
+    }
+  },
+  "colorways": {
+    "graphite": {
+      "body": {
+        "color": [
+          0.0242,
+          0.0242,
+          0.0232
+        ],
+        "roughness": 0.55
+      },
+      "keys": {
+        "color": [
+          0.0423,
+          0.0423,
+          0.0395
+        ]
+      },
+      "glyph": {
+        "color": [
+          0.5089,
+          0.4851,
+          0.4342
+        ]
+      },
+      "print": {
+        "color": [
+          0.5089,
+          0.4851,
+          0.4342
+        ]
+      },
+      "engrave": {
+        "color": [
+          0.0168,
+          0.0168,
+          0.016
+        ]
+      },
+      "accent": {
+        "color": [
+          0.807,
+          0.0976,
+          0.0116
+        ]
+      }
+    },
+    "paper": {
+      "body": {
+        "color": [
+          0.7913,
+          0.7682,
+          0.7157
+        ],
+        "roughness": 0.5
+      },
+      "keys": {
+        "color": [
+          0.6514,
+          0.624,
+          0.5647
+        ]
+      },
+      "glyph": {
+        "color": [
+          0.0685,
+          0.0648,
+          0.0561
+        ]
+      },
+      "print": {
+        "color": [
+          0.0685,
+          0.0648,
+          0.0561
+        ]
+      },
+      "engrave": {
+        "color": [
+          0.6724,
+          0.6445,
+          0.5906
+        ]
+      },
+      "accent": {
+        "color": [
+          0.807,
+          0.0976,
+          0.0116
+        ]
+      }
+    }
+  }
+}

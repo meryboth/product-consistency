@@ -140,7 +140,7 @@ La investigación tiene dos estudios. **A va primero**: sin una medición valida
 |---|---|---|
 | **LUMEN** (consola portátil) | Caso típico, con partes chicas y brillantes (A/B) | Calibración |
 | **FIELD 16** (cámara de bolsillo) | Distinta forma; una banda de color que capta la luz lateral | Evaluación |
-| **P3, nuevo: lata o envase con etiqueta impresa** | **Elegido para romper** las técnicas: superficie curva y especular, y **mucho texto**, que es la falla n.º 1 según Photoroom y la que LUMEN y FIELD 16 casi no tienen | Evaluación |
+| **P3, nuevo: celular e-ink "low attention"** | **Elegido para romper** las técnicas: la pantalla lleva una UI hecha casi solo de texto legible (hora, lista de apps), que es la falla n.º 1 según Photoroom y la que LUMEN y FIELD 16 casi no tienen; además tiene botones chicos | Evaluación |
 
 Los tres son inventados y se construyen en código, como en From CAD to Shelf: nada imita una marca real. Separar calibración y evaluación **por producto** evita que los umbrales se ajusten a las mismas imágenes con que se evalúan.
 
@@ -181,9 +181,11 @@ Los tres son inventados y se construyen en código, como en From CAD to Shelf: n
 
 **Etiquetado humano**
 
-- Marilyn más 1 o 2 personas, a ciegas respecto de la condición y del valor de la métrica.
+- En las perturbaciones, la etiqueta es **automática por construcción**: la falla se inyecta, así que se sabe cuál es.
+- Las generaciones reales las etiqueta Marilyn, a ciegas respecto de la condición y del valor de la métrica, en una página local que se opera con teclado.
 - Checklist por atributo (forma, partes, color, texto: "sirve / no sirve") y alrededor de 150 tripletes 2AFC.
-- El κ entre personas se reporta como techo.
+- Como hay una sola anotadora, el techo de acuerdo es **test-retest**: un 20 % al azar se vuelve a etiquetar a ciegas días después y se reporta el κ intra-anotadora.
+- El juez VLM no puede reemplazar las etiquetas humanas: es uno de los jueces que se evalúan.
 
 **Qué se reporta**
 
@@ -257,5 +259,6 @@ Toda corrida paga se aprueba antes de lanzarse, y el costo real sale del ledger 
 - Todos los productos son **sintéticos, construidos en código**: la geometría es exacta y el mapa de partes, perfecto. Con fotos reales de producto (sin CAD) habría que segmentar, y la batería quedaría peor de lo que se va a medir acá.
 - Hay tres productos y **un solo backend pago**. Los resultados de B valen para nano-banana-2, no para "los modelos de API".
 - Con alrededor de 240 imágenes etiquetadas, el IC del acuerdo queda cerca de ±9 %, no ±5 %.
+- Hay una sola anotadora, que además es la autora y conoce las hipótesis. El etiquetado a ciegas lo mitiga, pero no reemplaza el acuerdo entre personas.
 - La precisión de bordes asume que la cámara coincide con el render. Para B se necesita el registro de B3, y si el registro falla, la métrica falla con él.
 - El realismo se juzga con pocas personas y es un juicio, no una medida física.
