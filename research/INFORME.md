@@ -145,6 +145,50 @@ Una falla cuenta como detectada si queda peor que el **peor** valor del producto
 
 ---
 
+## Recomendaciones, según la evidencia de hoy
+
+Esta sección se actualiza con cada fase. Cada recomendación dice de dónde sale su respaldo:
+- **Nuestros datos:** medido en este repo.
+- **Un caso:** visto una vez, todavía sin N.
+- **Literatura / industria:** fuentes de [`LITERATURE.md`](LITERATURE.md).
+- **Hipótesis:** está en el protocolo y todavía no se midió.
+
+### Con respaldo
+
+**1. Partir de un 3D (CAD o un modelo reconstruido), no de una imagen.** *Industria (gemelos digitales de Unilever, Nestlé y NVIDIA) y From CAD to Shelf.*
+El 3D fija la geometría a través de ControlNet. Además da con qué medir. Todas las métricas que funcionaron en la fase 1 (bordes, presencia por pieza, color por parte) usan las máscaras, el mapa de partes y los bordes del render. Sin 3D, el producto se puede generar, pero no se puede verificar por región.
+
+**2. Lo que se puede componer, no se genera.** *Literatura (COLE, PosterMaker), industria (Photoroom) y un caso.*
+El texto, las pantallas y los logos se pegan exactos después de generar, en vez de pedírselos al modelo. Logo o texto deformado es la falla más frecuente en el benchmark humano de Photoroom (20 % de las fallas). En la primera prueba de la fase 2, SDXL inventó texto ilegible en la pantalla de VELA, y el lock de From CAD to Shelf lo reemplazó por la pantalla exacta. Es un solo caso: los números salen de la fase 2.
+
+**3. Toda imagen pasa por un gate, y el gate tiene que mirar los dos lados.** *Nuestros datos (perturbaciones sintéticas).*
+- Un gate de color solo no alcanza. El de From CAD to Shelf no rechazó ninguna parte inventada ni faltante fuera del colorway naranja (0 de 40 en esas perturbaciones), y rechazó 53 de 108 imágenes correctas.
+- Lo inventado lo ve la precisión de bordes contra el render (AUC 0.932).
+- Lo que falta lo ve la presencia por pieza (AUC 0.792).
+- El texto roto lo ve el CER sobre el texto grande (typo: AUC 1.0).
+- Ningún gate está listo hasta validarse contra juicio humano en un set aparte. Eso es la fase 3.
+
+**4. Medir el color contra el render y descontando la luz, no contra el color absoluto del spec.** *Nuestros datos.*
+Comparado con el spec, el render naranja correcto no pasó nunca (0 de 16), porque el tone mapping lo desatura. Además, cualquier luz de escena mueve el color más que un error real. Con el tinte de la luz descontado, la detección de un color corrido (+10) pasa de AUC 0.521 a 0.906, y el balance de blancos deja de dar falsa alarma.
+
+### Todavía sin medir acá
+
+**5. Separar forma y luz, y aceptar el costo en realismo.** *From CAD to Shelf (una semilla por variante).*
+Mucho control (ControlNet alto y denoise bajo) sostiene el producto, pero la foto se ve a render. La fase 2 barre esa perilla (1,0, 0,75 y 0,5).
+
+**6. En ediciones de varios turnos, volver siempre a la referencia original y repetir la lista de invariantes.** *Guías de OpenAI, Google y BFL, sin mediciones publicadas. Hipótesis H6.*
+
+**7. El prompt o la spec estructurada sirven para lo que se puede nombrar (colores, cantidades, materiales), no para el texto chico ni la forma del logo.** *Literatura. Hipótesis H4.*
+
+**8. Si no hay 3D: packshot recortado, fondo generado, relight y reinyección del detalle** (IC-Light con DetailTransfer). *Industria y workflows de ComfyUI.* Es la alternativa cuando solo hay fotos del producto.
+
+### Lo que todavía no se puede recomendar
+
+- Si un modelo pago con buena spec en el prompt rinde más que el pipeline local con guardas: Estudio B.
+- Qué umbrales usar en el gate: salen del etiquetado y del set de evaluación.
+
+---
+
 ## 1. Pregunta
 
 Un modelo generativo produce muy bien *una* imagen linda y mal *la segunda*: otro ángulo, otra escena u otra edición, y el producto cambia. Para una campaña, un catálogo o un sistema de diseño eso es fatal, porque todas las piezas tienen que mostrar el mismo objeto.
