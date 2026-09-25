@@ -122,6 +122,15 @@ Toda corrida paga necesita la aprobación explícita de Marilyn antes de lanzars
 - Un custom node de ComfyUI con el gate v1 y su matriz contra humano en el README.
 - Nota del portfolio en inglés [DECIDIR título].
 
+## Anexo posible (fuera del experimento): Midjourney, en forma manual
+
+**No es parte del experimento.** Ninguna hipótesis ni conclusión depende de este anexo. Solo se corre si hay suscripción activa y tiempo, y cuando termine el Estudio B.
+
+- **Por qué es manual.** Midjourney no tiene API oficial, y sus términos prohíben automatizar el servicio ("You may not use automated tools to access, interact with, or generate Assets through the Services"). Los wrappers de terceros violan esos términos y no garantizan qué versión ni qué parámetros corren, así que quedan descartados.
+- **Condición B-MJ.** Marilyn genera a mano en midjourney.com con los mismos prompts compilados de B0 y B1, la misma imagen de referencia (con su parámetro de referencia de objeto, `--oref` en V7; verificar en V8.x) y las semillas 1–5 con `--seed`. Las imágenes descargadas se miden con el gate v1 congelado, igual que el resto.
+- **Qué se registra:** la versión del modelo y los parámetros exactos de cada imagen, y el costo como una fracción de la suscripción. En los límites se aclara que la condición no está automatizada y que el N es chico.
+- **Cómo se reporta:** como estudio de casos, aparte de los resultados de B. No se declara ganador contra las condiciones automatizadas.
+
 ## Cambios al protocolo
 
 | Fecha | Qué cambió | Por qué | ¿Se decidió antes o después de ver resultados? |
@@ -129,4 +138,5 @@ Toda corrida paga necesita la aprobación explícita de Marilyn antes de lanzars
 | 2026-09-25 | La investigación pasa a un repo nuevo (antes se pensaba como continuación de from-cad-to-shelf) | Pedido de Marilyn | Antes |
 | 2026-09-25 | P3 pasa a ser un celular e-ink inventado (antes, un envase con etiqueta) | Pedido de Marilyn. Sigue siendo exigente en texto (pantalla con UI de texto), pero pierde lo curvo y especular: puede sumarse una tapa trasera brillante | Antes |
 | 2026-09-25 | Una sola anotadora, con test-retest como techo, en lugar de κ entre 2–3 personas | Recursos disponibles | Antes |
+| 2026-09-25 | Se agrega un anexo opcional con Midjourney manual, fuera de las hipótesis | Pedido de Marilyn. No hay API oficial | Antes |
 | 2026-09-25 | VELA: la serigrafía de la espalda pasa de 1,5 a ~2,5 mm de alto de letra, y el grabado "VELA" sube de contraste | En el render de referencia no se leía: un texto que no cumple ni la referencia no puede ser meta del OCR | Antes (revisión visual de los renders; todavía no hay métricas) |
