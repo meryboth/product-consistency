@@ -23,6 +23,7 @@ from qa import lab  # noqa: E402
 
 GREY = (200, 200, 198)
 EDGE_TOL_PX = 2          # an edge counts as matched within this many pixels (PROTOCOL.md §5)
+PIECE_MIN_PX = 200       # a piece (one button, one key) must be this big to judge whether it is there
 COLOUR_TOL = 10.0        # hue-chroma delta above which a pixel is "out of tolerance"; calibrated in phase 3
 
 
@@ -97,6 +98,108 @@ def colour_scores(passes, view, colorway, spec, img):
         parts[name] = row
         worst_p95, worst_out = max(worst_p95, row['p95']), max(worst_out, row['out'])
     return {'colour_worst_p95': round(worst_p95, 2), 'colour_worst_out': round(worst_out, 4)}, parts
+
+
+# ---------- colour and presence, v1: the light is taken out first ----------
+def _linear(arr):
+    a = arr.astype(float) / 255
+    return np.where(a <= 0.04045, a / 12.92, ((a + 0.055) / 1.055) ** 2.4)
+
+
+def _srgb(lin):
+    lin = np.clip(lin, 0, 1)
+    return (np.where(lin <= 0.0031308, lin * 12.92, 1.055 * lin ** (1 / 2.4) - 0.055) * 255 + 0.5).clip(0, 255).astype(np.uint8)
+
+
+def _balanced(photo, ref, region):
+    """The photo with the light's colour cast taken out: per-channel gains (von Kries, in linear RGB) that bring the
+    region's median to the reference's. The region is the rest of the product, never the part being judged, so a
+    part whose own colour drifted cannot correct itself away."""
+    p, r = _linear(np.asarray(photo)), _linear(np.asarray(ref))
+    gains = np.clip(np.median(r[region], 0) / np.maximum(np.median(p[region], 0), 1e-4), 0.5, 2.0)
+    return lab(Image.fromarray(_srgb(p * gains)))
+
+
+def _components(mask, min_px=30):
+    n, lab_img, stats, _ = cv2.connectedComponentsWithStats(mask.astype(np.uint8))
+    return [lab_img == k for k in range(1, n) if stats[k, cv2.CC_STAT_AREA] >= min_px]
+
+
+def colour_presence_scores(passes, view, colorway, img):
+    """Per part, against the studio reference render (not the spec: the render is what a right photo looks like):
+      colour    hue-chroma distance per pixel, after the light's cast is removed using the rest of the product
+      presence  per separate piece of each part (one button, one key): the share of its pixels that look more like
+                the piece than like what surrounds it. A missing button reads as its surroundings."""
+    size = img.size
+    ref = on_grey(os.path.join(passes, view, f'beauty_{colorway}.png'), size)
+    product = load_mask(passes, view, 'mask.png', size)
+    rl = lab(ref)
+    worst_p95, worst_med, presence, per_part = 0.0, 0.0, 1.0, {}
+    for name, mask in part_masks(passes, view, size).items():
+        m = cv2.erode(mask.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+        if m.sum() < 50:
+            continue
+        rest = product & ~cv2.dilate(mask.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)
+        if rest.sum() < 0.03 * product.sum():
+            rest = ~product                                           # nothing else on the product: the backdrop
+        g = _balanced(img, ref, rest)
+        target = np.median(rl[m], 0)
+        d = chroma_delta_map(g[m], target)
+        row = {'median': round(float(np.median(d)), 2), 'p95': round(float(np.percentile(d, 95)), 2)}
+        for piece in _components(mask, PIECE_MIN_PX):
+            ring = cv2.dilate(piece.astype(np.uint8), np.ones((9, 9), np.uint8)).astype(bool) & ~mask & product
+            if ring.sum() < 20:
+                continue
+            c_in, c_out = np.median(rl[piece], 0), np.median(rl[ring], 0)
+            if np.linalg.norm(c_in - c_out) < 8:                      # a piece that looks like its surroundings
+                continue
+            px = g[piece]
+            share = float((np.linalg.norm(px - c_in, axis=1) < np.linalg.norm(px - c_out, axis=1)).mean())
+            presence = min(presence, share)
+            row['presence_min'] = round(min(row.get('presence_min', 1.0), share), 3)
+        per_part[name] = row
+        worst_p95, worst_med = max(worst_p95, row['p95']), max(worst_med, row['median'])
+    return {'colour_v1_p95': round(worst_p95, 2), 'colour_v1_median': round(worst_med, 2),
+            'presence_min': round(presence, 3)}, per_part
+
+
+def contrast_scores(passes, view, colorway, img):
+    """v2, relative instead of absolute. A light multiplies a part and what sits next to it by about the same
+    amount, so the ratio between them (linear RGB) survives a change of light where their colours do not.
+      presence   per piece (one button, one key): how much of the reference contrast between the piece and the ring
+                 around it the photo keeps, projected on the reference contrast. 1 = all of it, 0 = none (gone).
+      colour     per part: the chromatic part of the log-ratio between the part and the rest of the product,
+                 photo minus reference; a part that changed hue moves it, a light that tints everything does not."""
+    size = img.size
+    ref = on_grey(os.path.join(passes, view, f'beauty_{colorway}.png'), size)
+    P, R = _linear(np.asarray(img)) + 1e-3, _linear(np.asarray(ref)) + 1e-3
+    product = load_mask(passes, view, 'mask.png', size)
+    presence, drift, per_part = 1.0, 0.0, {}
+    for name, mask in part_masks(passes, view, size).items():
+        m = cv2.erode(mask.astype(np.uint8), np.ones((3, 3), np.uint8)) > 0
+        if m.sum() < 50:
+            continue
+        row = {}
+        rest = product & ~cv2.dilate(mask.astype(np.uint8), np.ones((5, 5), np.uint8)).astype(bool)
+        if rest.sum() > 200:
+            lr = np.log(np.median(R[m], 0) / np.median(R[rest], 0))
+            lp = np.log(np.median(P[m], 0) / np.median(P[rest], 0))
+            chroma = (lp - lp.mean()) - (lr - lr.mean())          # the luminance part of the ratio is dropped
+            row['drift'] = round(float(np.linalg.norm(chroma)) * 100, 2)
+            drift = max(drift, row['drift'])
+        for piece in _components(mask, PIECE_MIN_PX):
+            ring = cv2.dilate(piece.astype(np.uint8), np.ones((11, 11), np.uint8)).astype(bool) & ~mask & product
+            if ring.sum() < 20:
+                continue
+            cr = np.log(np.median(R[piece], 0) / np.median(R[ring], 0))
+            if np.linalg.norm(cr) < 0.15:                            # a piece too close to its surroundings to judge
+                continue
+            cp = np.log(np.median(P[piece], 0) / np.median(P[ring], 0))
+            share = float(np.clip(np.dot(cp, cr) / np.dot(cr, cr), 0, 1.5))
+            presence = min(presence, share)
+            row['presence_min'] = round(min(row.get('presence_min', 9.0), share), 3)
+        per_part[name] = row
+    return {'presence_v2': round(presence, 3), 'colour_v2_drift': round(drift, 2)}, per_part
 
 
 # ---------- identity ----------
@@ -187,15 +290,21 @@ def text_scores(passes, view, spec, img):
     crop = _deskew(passes, view, img)
     crop = crop.resize((crop.size[0] * 2, crop.size[1] * 2), Image.LANCZOS)   # small type reads better upscaled
     found = ' '.join(read_lines(crop)).lower()
-    # word by word, in any order: the OCR may split, merge or reorder lines, and that is not the product's fault
-    per_line = []
-    for t in truth:
+
+    def line_cer(t):
+        # word by word, in any order: the OCR may split, merge or reorder lines, and that is not the product's fault
         words = t.lower().split()
-        per_line.append(sum(substring_cer(found, w) * len(w) for w in words) / max(sum(map(len, words)), 1))
+        return sum(substring_cer(found, w) * len(w) for w in words) / max(sum(map(len, words)), 1)
+
+    per_line = [line_cer(t) for t in truth]
+    side = 'screen' if view == 'front' else 'back'
+    primary = spec.get('text_primary', {}).get(side, truth)
+    per_primary = [line_cer(t) for t in primary]
     # invented text: words the OCR reads that are in no reference line (a precision-side check for type)
     vocab = {w for t in truth for w in t.lower().split()}
     extra = [w for w in found.split() if len(w) > 2 and min((cer(w, v) for v in vocab), default=1) > 0.34]
     return {'cer_mean': round(float(np.mean(per_line)), 4), 'cer_worst': round(float(np.max(per_line)), 4),
+            'cer_primary_worst': round(float(np.max(per_primary)), 4),
             'lines_read': int(sum(c <= 0.2 for c in per_line)), 'lines_total': len(truth), 'words_extra': len(extra),
             'ocr_text': found}
 
@@ -209,6 +318,14 @@ def measure(product, view, colorway, image, passes=None, identity=True, text=Tru
     out = {**edge_scores(passes, view, colorway, img)}
     colour, parts = colour_scores(passes, view, colorway, spec, img)
     out.update(colour)
+    v1, parts_v1 = colour_presence_scores(passes, view, colorway, img)
+    out.update(v1)
+    for name, row in parts_v1.items():
+        parts.setdefault(name, {}).update({f'v1_{k}': v for k, v in row.items()})
+    v2, parts_v2 = contrast_scores(passes, view, colorway, img)
+    out.update(v2)
+    for name, row in parts_v2.items():
+        parts.setdefault(name, {}).update({f'v2_{k}': v for k, v in row.items()})
     if identity:
         out.update(identity_scores(passes, view, colorway, img))
     if text:

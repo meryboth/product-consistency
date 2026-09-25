@@ -228,7 +228,8 @@ def export_product(folder):
                          'keys': {'color': list(c['keys'])}, 'glyph': {'color': list(c['glyph'])},
                          'print': {'color': list(c['print'])}, 'engrave': {'color': list(c['engrave'])},
                          'accent': {'color': list(ACCENT)}}
-    screen_text = json.load(open(os.path.join(HERE, 'screen.json'), encoding='utf-8'))['lines']
+    screen = json.load(open(os.path.join(HERE, 'screen.json'), encoding='utf-8'))
+    screen_text = screen['lines']
     spec = {
         'name': 'VELA',
         'code': 'V-43',
@@ -243,6 +244,8 @@ def export_product(folder):
         'protected_materials': ['screen', 'gasket', 'keys', 'glyph', 'accent', 'ring', 'lens', 'flash', 'print', 'engrave'],
         'exact_materials': ['screen', 'glyph', 'print', 'lens'],
         'text': {'screen': screen_text, 'back': ['VELA'] + BACK_LINES},
+        # primary text decides; secondary (small type) is reported apart, OCR is unreliable on it
+        'text_primary': {'screen': screen['primary'], 'back': ['VELA']},
         'passes': {'views': {'front': [0, 4], 'back': [155, 16]}},
         'colorways': colorways,
     }

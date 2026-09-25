@@ -15,6 +15,7 @@ import battery  # noqa: E402
 import qa  # noqa: E402
 
 VIEWS = {'lumen': ['front', 'right'], 'field16': ['front', 'right'], 'vela': ['front', 'back']}
+VERSION = 'v1'  # v0 metrics + colour/presence v1 (light cast removed) + v2 (contrast ratios) + primary CER
 COMMIT = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
 
 
@@ -36,19 +37,19 @@ def run(product, log):
         t0 = time.time()
         gate = qa.check(passes, path, cw, spec, path)
         scores, parts = battery.measure(product, view, cw, path, passes)
-        row = {'id': f'known-{product}-{view}-{cw}-{condition.replace("/", "-")}', 'study': 'A', 'source': source,
+        row = {'id': f'known-{VERSION}-{product}-{view}-{cw}-{condition.replace("/", "-")}', 'study': 'A', 'source': source,
                'condition': condition, 'case': product, 'view': view, 'colorway': cw, 'seed': None,
                'expected': expected, 'gate_verdict': gate['verdict'],
                'metrics': {'gate_colour': gate['delta_e']['colour'], 'gate_parts': gate['delta_e']['parts'], **scores},
                'parts': parts, 'time_s': round(time.time() - t0, 2), 'cost_usd': 0.0, 'status': 'ok',
-               'commit': COMMIT, 'judges': 'baseline-gate@64caef5 + battery-v0',
+               'commit': COMMIT, 'judges': f'baseline-gate@64caef5 + battery-{VERSION}',
                'output': os.path.relpath(path, ROOT).replace(os.sep, '/'),
                'note': 'typo also shifts the two new letters ~2 px' if condition.endswith('typo') else ''}
         log.write(json.dumps(row) + '\n')
         log.flush()
         print(product, view, cw, condition, expected, gate['verdict'],
               {k: scores[k] for k in ('edge_precision', 'edge_recall', 'colour_worst_p95', 'dreamsim') if k in scores},
-              scores.get('cer_mean', ''), flush=True)
+              scores.get('cer_primary_worst', ''), flush=True)
 
 
 if __name__ == '__main__':

@@ -65,6 +65,10 @@ def draw():
 if __name__ == '__main__':
     draw().save(os.path.join(HERE, 'screen.png'))
     lines = [f'{BATTERY}', CLOCK, DATE] + [f'{l} {v}' if v else l for l, v in ITEMS] + [FOOTER]
-    json.dump({'lines': lines, 'note': 'reading order, top to bottom; the battery sits on the first row, right'},
+    # the size each line is drawn at (px on the 960 x 1600 texture): lines of 52 px or more are the primary text,
+    # the small ones (battery, footer) are secondary, since OCR misreads small type even on a clean render
+    sizes = [40, 210, 52] + [72] * len(ITEMS) + [46]
+    json.dump({'lines': lines, 'sizes_px': sizes, 'primary': [l for l, z in zip(lines, sizes) if z >= 52],
+               'note': 'reading order, top to bottom; the battery sits on the first row, right'},
               open(os.path.join(HERE, 'screen.json'), 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
     print('screen.png', len(lines), 'lines')

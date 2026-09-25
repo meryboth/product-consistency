@@ -55,6 +55,21 @@
       "DESIGNED FOR LESS"
     ]
   },
+  "text_primary": {
+    "screen": [
+      "09:41",
+      "Thursday, September 25",
+      "Calls",
+      "Messages 2",
+      "Notes",
+      "Calendar",
+      "Alarm 07:30",
+      "Settings"
+    ],
+    "back": [
+      "VELA"
+    ]
+  },
   "passes": {
     "views": {
       "front": [
