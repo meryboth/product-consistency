@@ -129,3 +129,4 @@ Toda corrida paga necesita la aprobación explícita de Marilyn antes de lanzars
 | 2026-09-25 | La investigación pasa a un repo nuevo (antes se pensaba como continuación de from-cad-to-shelf) | Pedido de Marilyn | Antes |
 | 2026-09-25 | P3 pasa a ser un celular e-ink inventado (antes, un envase con etiqueta) | Pedido de Marilyn. Sigue siendo exigente en texto (pantalla con UI de texto), pero pierde lo curvo y especular: puede sumarse una tapa trasera brillante | Antes |
 | 2026-09-25 | Una sola anotadora, con test-retest como techo, en lugar de κ entre 2–3 personas | Recursos disponibles | Antes |
+| 2026-09-25 | VELA: la serigrafía de la espalda pasa de 1,5 a ~2,5 mm de alto de letra, y el grabado "VELA" sube de contraste | En el render de referencia no se leía: un texto que no cumple ni la referencia no puede ser meta del OCR | Antes (revisión visual de los renders; todavía no hay métricas) |

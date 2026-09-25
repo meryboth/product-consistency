@@ -38,9 +38,9 @@ def lin(h):
 ACCENT, ALU, LENS = lin('#E8581C'), lin('#C9CACC'), lin('#0A0A0C')
 COLORWAYS = {
     'graphite': dict(body=lin('#2B2B2A'), keys=lin('#3A3A38'), glyph=lin('#BDB9B0'), print=lin('#BDB9B0'),
-                     engrave=lin('#232322'), rough=0.55),
+                     engrave=lin('#161615'), rough=0.55),
     'paper': dict(body=lin('#E6E3DC'), keys=lin('#D3CFC6'), glyph=lin('#4A4843'), print=lin('#4A4843'),
-                  engrave=lin('#D6D2CA'), rough=0.5),
+                  engrave=lin('#B9B4AA'), rough=0.5),
 }
 
 
@@ -195,7 +195,7 @@ def build(cw):
     disc('flash', 0.0015, 0.0003, cx - 0.0095, D - 0.0001, cz, flash, 7, 0.0001, 32)
     text('wordmark', 'VELA', 0.0056, 0.0, D + 0.00004, 0.004, engrave, back=True, extrude=0.00012)
     for i, line in enumerate(BACK_LINES):
-        text(f'print_{i}', line, 0.0021, 0.0, D + 0.00002, -H / 2 + 0.016 - 0.0032 * i, printed, back=True, extrude=0.00002)
+        text(f'print_{i}', line, 0.0035, 0.0, D + 0.00002, -H / 2 + 0.018 - 0.0052 * i, printed, back=True, extrude=0.00002)
 
 
 def export_product(folder):
