@@ -1,5 +1,5 @@
 {
-  "generated_from": "research/runs.jsonl (rows known-*)",
+  "generated_from": "research/runs.jsonl (rows known-v1-*)",
   "phase0": {
     "n": 48,
     "publish": 23,
@@ -67,6 +67,11 @@
         "rate": 0.0
       }
     },
+    "remove_presence_zero": {
+      "n": 8,
+      "of": 8,
+      "rate": 1.0
+    },
     "detection": {
       "invent": {
         "gate_verdict": {
@@ -114,7 +119,37 @@
           "of": 12,
           "rate": 0.0
         },
+        "colour_v1_p95": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "colour_v1_median": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_min": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -166,7 +201,37 @@
           "of": 12,
           "rate": 0.25
         },
+        "colour_v1_p95": {
+          "n": 5,
+          "of": 12,
+          "rate": 0.417
+        },
+        "colour_v1_median": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "presence_min": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "presence_v2": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "colour_v2_drift": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -218,10 +283,40 @@
           "of": 12,
           "rate": 0.0
         },
+        "colour_v1_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v1_median": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_min": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
         "cer_worst": {
           "n": 4,
           "of": 4,
           "rate": 1.0
+        },
+        "cer_primary_worst": {
+          "n": 2,
+          "of": 4,
+          "rate": 0.5
         }
       },
       "typo": {
@@ -274,6 +369,36 @@
           "n": 2,
           "of": 2,
           "rate": 1.0
+        },
+        "cer_primary_worst": {
+          "n": 2,
+          "of": 2,
+          "rate": 1.0
+        },
+        "colour_v1_p95": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "colour_v1_median": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "presence_min": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 2,
+          "rate": 0.0
         }
       },
       "warp10": {
@@ -322,7 +447,37 @@
           "of": 12,
           "rate": 0.333
         },
+        "colour_v1_p95": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "colour_v1_median": {
+          "n": 5,
+          "of": 12,
+          "rate": 0.417
+        },
+        "presence_min": {
+          "n": 10,
+          "of": 12,
+          "rate": 0.833
+        },
+        "presence_v2": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "colour_v2_drift": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -374,7 +529,37 @@
           "of": 12,
           "rate": 0.75
         },
+        "colour_v1_p95": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "colour_v1_median": {
+          "n": 6,
+          "of": 12,
+          "rate": 0.5
+        },
+        "presence_min": {
+          "n": 10,
+          "of": 12,
+          "rate": 0.833
+        },
+        "presence_v2": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "colour_v2_drift": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -426,7 +611,37 @@
           "of": 12,
           "rate": 0.25
         },
+        "colour_v1_p95": {
+          "n": 7,
+          "of": 12,
+          "rate": 0.583
+        },
+        "colour_v1_median": {
+          "n": 8,
+          "of": 12,
+          "rate": 0.667
+        },
+        "presence_min": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_v2": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "colour_v2_drift": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -478,7 +693,37 @@
           "of": 12,
           "rate": 0.083
         },
+        "colour_v1_p95": {
+          "n": 2,
+          "of": 12,
+          "rate": 0.167
+        },
+        "colour_v1_median": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
+        "presence_min": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -530,7 +775,37 @@
           "of": 12,
           "rate": 0.0
         },
+        "colour_v1_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v1_median": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_min": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -582,7 +857,37 @@
           "of": 12,
           "rate": 0.0
         },
+        "colour_v1_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v1_median": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_min": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -634,7 +939,37 @@
           "of": 12,
           "rate": 0.333
         },
+        "colour_v1_p95": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v1_median": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_min": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
         "cer_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        },
+        "cer_primary_worst": {
           "n": 0,
           "of": 4,
           "rate": 0.0
@@ -686,10 +1021,834 @@
           "of": 12,
           "rate": 0.083
         },
+        "colour_v1_p95": {
+          "n": 4,
+          "of": 12,
+          "rate": 0.333
+        },
+        "colour_v1_median": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
+        "presence_min": {
+          "n": 1,
+          "of": 12,
+          "rate": 0.083
+        },
+        "presence_v2": {
+          "n": 0,
+          "of": 12,
+          "rate": 0.0
+        },
+        "colour_v2_drift": {
+          "n": 3,
+          "of": 12,
+          "rate": 0.25
+        },
         "cer_worst": {
           "n": 3,
           "of": 4,
           "rate": 0.75
+        },
+        "cer_primary_worst": {
+          "n": 0,
+          "of": 4,
+          "rate": 0.0
+        }
+      }
+    },
+    "auc": {
+      "invent": {
+        "gate_verdict": {
+          "auc": 0.411,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.531,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.188,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.932,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.328,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.375,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.411,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.359,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.354,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.453,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.443,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.25,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.547,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.172,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.271,
+          "n": 12
+        }
+      },
+      "remove": {
+        "gate_verdict": {
+          "auc": 0.411,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.51,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.286,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.411,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.693,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.656,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.615,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.521,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.542,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.453,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.677,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.656,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.792,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.797,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.656,
+          "n": 12
+        }
+      },
+      "erasetext": {
+        "gate_verdict": {
+          "auc": 0.411,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.51,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.328,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.818,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.708,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.375,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.365,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.583,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.406,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.984,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.75,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.401,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.24,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.495,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.505,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.292,
+          "n": 12
+        }
+      },
+      "typo": {
+        "gate_verdict": {
+          "auc": 0.438,
+          "n": 2
+        },
+        "gate_colour": {
+          "auc": 0.438,
+          "n": 2
+        },
+        "gate_parts": {
+          "auc": 0.188,
+          "n": 2
+        },
+        "edge_precision": {
+          "auc": 1.0,
+          "n": 2
+        },
+        "edge_recall": {
+          "auc": 0.812,
+          "n": 2
+        },
+        "colour_worst_p95": {
+          "auc": 0.219,
+          "n": 2
+        },
+        "colour_worst_out": {
+          "auc": 0.406,
+          "n": 2
+        },
+        "dino_cos": {
+          "auc": 0.25,
+          "n": 2
+        },
+        "dreamsim": {
+          "auc": 0.25,
+          "n": 2
+        },
+        "cer_worst": {
+          "auc": 0.875,
+          "n": 2
+        },
+        "cer_primary_worst": {
+          "auc": 1.0,
+          "n": 2
+        },
+        "colour_v1_p95": {
+          "auc": 0.0,
+          "n": 2
+        },
+        "colour_v1_median": {
+          "auc": 0.125,
+          "n": 2
+        },
+        "presence_min": {
+          "auc": 0.5,
+          "n": 2
+        },
+        "presence_v2": {
+          "auc": 0.125,
+          "n": 2
+        },
+        "colour_v2_drift": {
+          "auc": 0.125,
+          "n": 2
+        }
+      },
+      "warp10": {
+        "gate_verdict": {
+          "auc": 0.495,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.562,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.458,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 1.0,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 1.0,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.734,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.677,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.958,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.641,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.453,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.812,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.656,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.969,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.948,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.75,
+          "n": 12
+        }
+      },
+      "warp25": {
+        "gate_verdict": {
+          "auc": 0.536,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.615,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.667,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 1.0,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 1.0,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.74,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.698,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.979,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.906,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.453,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.812,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.729,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.974,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.948,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.917,
+          "n": 12
+        }
+      },
+      "hue10": {
+        "gate_verdict": {
+          "auc": 0.703,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.854,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.188,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.307,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.307,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.521,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.391,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.521,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.635,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.453,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.833,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.906,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.438,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.698,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.76,
+          "n": 12
+        }
+      },
+      "hue5": {
+        "gate_verdict": {
+          "auc": 0.411,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.375,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.188,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.328,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.339,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.375,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.365,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.458,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.438,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.453,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.656,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.76,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.38,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.552,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.604,
+          "n": 12
+        }
+      },
+      "hue2": {
+        "gate_verdict": {
+          "auc": 0.399,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.208,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.143,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.292,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.345,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.321,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.345,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.321,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.286,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.446,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.417,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.476,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.435,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.44,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.393,
+          "n": 12
+        }
+      },
+      "background": {
+        "gate_verdict": {
+          "auc": 0.399,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.512,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.143,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.47,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.339,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.357,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.345,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.077,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.071,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.446,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.333,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.089,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.518,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.077,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.071,
+          "n": 12
+        }
+      },
+      "whitebalance": {
+        "gate_verdict": {
+          "auc": 0.78,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.554,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.827,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.393,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.274,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.821,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.696,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.476,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.786,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.446,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.226,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.28,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.482,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.298,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.369,
+          "n": 12
+        }
+      },
+      "jpeg": {
+        "gate_verdict": {
+          "auc": 0.399,
+          "n": 12
+        },
+        "gate_colour": {
+          "auc": 0.554,
+          "n": 12
+        },
+        "gate_parts": {
+          "auc": 0.429,
+          "n": 12
+        },
+        "edge_precision": {
+          "auc": 0.69,
+          "n": 12
+        },
+        "edge_recall": {
+          "auc": 0.53,
+          "n": 12
+        },
+        "colour_worst_p95": {
+          "auc": 0.726,
+          "n": 12
+        },
+        "colour_worst_out": {
+          "auc": 0.679,
+          "n": 12
+        },
+        "dino_cos": {
+          "auc": 0.726,
+          "n": 12
+        },
+        "dreamsim": {
+          "auc": 0.548,
+          "n": 12
+        },
+        "cer_worst": {
+          "auc": 0.875,
+          "n": 4
+        },
+        "cer_primary_worst": {
+          "auc": 0.5,
+          "n": 4
+        },
+        "colour_v1_p95": {
+          "auc": 0.619,
+          "n": 12
+        },
+        "colour_v1_median": {
+          "auc": 0.679,
+          "n": 12
+        },
+        "presence_min": {
+          "auc": 0.464,
+          "n": 12
+        },
+        "presence_v2": {
+          "auc": 0.56,
+          "n": 12
+        },
+        "colour_v2_drift": {
+          "auc": 0.631,
+          "n": 12
         }
       }
     },
@@ -717,7 +1876,13 @@
       "colour_worst_out": "Color fuera de tol.",
       "dino_cos": "DINOv2",
       "dreamsim": "DreamSim",
-      "cer_worst": "CER (texto)"
+      "cer_worst": "CER (todo el texto)",
+      "cer_primary_worst": "CER principal",
+      "colour_v1_p95": "Color v1 p95",
+      "colour_v1_median": "Color v1 mediana",
+      "presence_min": "Presencia v1",
+      "presence_v2": "Presencia v2",
+      "colour_v2_drift": "Color v2 (contraste)"
     },
     "names": {
       "invent": "Parte inventada",
@@ -734,7 +1899,8 @@
       "jpeg": "JPEG calidad 35"
     },
     "tables": {
-      "detection_md": "| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Color p95 | DreamSim | CER (texto) |\n|---|---|---|---|---|---|---|---|\n| Parte inventada | sí | 4/12 | 11/12 | 0/12 | 1/12 | 0/12 | 0/4 |\n| Parte faltante | sí | 4/12 | 2/12 | 2/12 | 6/12 | 3/12 | 0/4 |\n| Texto borrado | sí | 4/12 | 7/12 | 2/12 | 0/12 | 0/12 | 4/4 |\n| Typo (\"Messagas\") | sí | 0/2 | 2/2 | 1/2 | 0/2 | 0/2 | 2/2 |\n| Warp 10 % | sí | 6/12 | 12/12 | 12/12 | 8/12 | 4/12 | 0/4 |\n| Warp 25 % | sí | 7/12 | 12/12 | 12/12 | 8/12 | 9/12 | 0/4 |\n| Color +10 | sí | 11/12 | 1/12 | 0/12 | 2/12 | 3/12 | 0/4 |\n| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 1/12 | 0/4 |\n| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Otro fondo | no | 4/12 | 2/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 7/12 | 4/12 | 0/4 |\n| JPEG calidad 35 | no | 4/12 | 1/12 | 2/12 | 7/12 | 1/12 | 3/4 |"
+      "detection_md": "| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Presencia v1 | Presencia v2 | Color p95 | Color v1 mediana | Color v2 (contraste) | DreamSim | CER principal |\n|---|---|---|---|---|---|---|---|---|---|---|\n| Parte inventada | sí | 4/12 | 11/12 | 1/12 | 0/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Parte faltante | sí | 4/12 | 2/12 | 7/12 | 6/12 | 6/12 | 6/12 | 6/12 | 3/12 | 0/4 |\n| Texto borrado | sí | 4/12 | 7/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 2/4 |\n| Typo (\"Messagas\") | sí | 0/2 | 2/2 | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 | 2/2 |\n| Warp 10 % | sí | 6/12 | 12/12 | 10/12 | 8/12 | 8/12 | 5/12 | 4/12 | 4/12 | 0/4 |\n| Warp 25 % | sí | 7/12 | 12/12 | 10/12 | 8/12 | 8/12 | 6/12 | 8/12 | 9/12 | 0/4 |\n| Color +10 | sí | 11/12 | 1/12 | 0/12 | 1/12 | 2/12 | 8/12 | 2/12 | 3/12 | 0/4 |\n| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 3/12 | 0/12 | 1/12 | 0/4 |\n| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Otro fondo | no | 4/12 | 2/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/4 |\n| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 0/12 | 7/12 | 0/12 | 0/12 | 4/12 | 0/4 |\n| JPEG calidad 35 | no | 4/12 | 1/12 | 1/12 | 0/12 | 7/12 | 3/12 | 3/12 | 1/12 | 0/4 |",
+      "auc_md": "| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Presencia v1 | Presencia v2 | Color p95 | Color v1 mediana | Color v2 (contraste) | DreamSim | CER principal |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n| Parte inventada | sí | 0.41 | 0.93 | 0.33 | 0.55 | 0.17 | 0.38 | 0.25 | 0.27 | 0.35 | 0.50 |\n| Parte faltante | sí | 0.41 | 0.41 | 0.69 | 0.79 | 0.80 | 0.66 | 0.66 | 0.66 | 0.54 | 0.50 |\n| Texto borrado | sí | 0.41 | 0.82 | 0.71 | 0.49 | 0.51 | 0.38 | 0.24 | 0.29 | 0.41 | 0.75 |\n| Typo (\"Messagas\") | sí | 0.44 | 1.00 | 0.81 | 0.50 | 0.12 | 0.22 | 0.12 | 0.12 | 0.25 | 1.00 |\n| Warp 10 % | sí | 0.49 | 1.00 | 1.00 | 0.97 | 0.95 | 0.73 | 0.66 | 0.75 | 0.64 | 0.50 |\n| Warp 25 % | sí | 0.54 | 1.00 | 1.00 | 0.97 | 0.95 | 0.74 | 0.73 | 0.92 | 0.91 | 0.50 |\n| Color +10 | sí | 0.70 | 0.31 | 0.31 | 0.44 | 0.70 | 0.52 | 0.91 | 0.76 | 0.64 | 0.50 |\n| Color +5 | borde | 0.41 | 0.33 | 0.34 | 0.38 | 0.55 | 0.38 | 0.76 | 0.60 | 0.44 | 0.50 |\n| Color +2 | no | 0.40 | 0.29 | 0.34 | 0.43 | 0.44 | 0.32 | 0.48 | 0.39 | 0.29 | 0.50 |\n| Otro fondo | no | 0.40 | 0.47 | 0.34 | 0.52 | 0.08 | 0.36 | 0.09 | 0.07 | 0.07 | 0.50 |\n| Balance de blancos | no | 0.78 | 0.39 | 0.27 | 0.48 | 0.30 | 0.82 | 0.28 | 0.37 | 0.79 | 0.50 |\n| JPEG calidad 35 | no | 0.40 | 0.69 | 0.53 | 0.46 | 0.56 | 0.73 | 0.68 | 0.63 | 0.55 | 0.50 |"
     }
   }
 }

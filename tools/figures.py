@@ -91,11 +91,12 @@ def perturbations():
 
 def detection():
     res = json.load(open(os.path.join(ROOT, 'research', 'results.json'), encoding='utf-8'))['phase1']
-    cols = ['gate_verdict', 'edge_precision', 'edge_recall', 'colour_worst_p95', 'dino_cos', 'dreamsim', 'cer_worst']
+    cols = ['gate_verdict', 'edge_precision', 'edge_recall', 'presence_min', 'presence_v2', 'colour_worst_p95',
+            'colour_v1_median', 'colour_v2_drift', 'dreamsim', 'cer_worst', 'cer_primary_worst']
     groups = [('Debería fallar: más alto es mejor', [p for p in res['detection'] if res['expected'][p] == 'fail']),
               ('Borde', [p for p in res['detection'] if res['expected'][p] == 'border']),
               ('No debería fallar: más bajo es mejor', [p for p in res['detection'] if res['expected'][p] == 'pass'])]
-    L, CW, RH, TOP, GAP = 250, 150, 44, 140, 44
+    L, CW, RH, TOP, GAP = 230, 118, 42, 140, 44
     n_rows = sum(len(g) for _, g in groups)
     W, H = L + CW * len(cols) + 20, TOP + n_rows * RH + GAP * len(groups) + 70
     im = Image.new('RGB', (W, H), SURFACE)
@@ -108,7 +109,7 @@ def detection():
         words, line = label.split(' '), ''
         lines = []
         for w in words:
-            if len(line + ' ' + w) > 14 and line:
+            if len(line + ' ' + w) > 12 and line:
                 lines.append(line)
                 line = w
             else:
@@ -147,10 +148,70 @@ def detection():
     im.save(os.path.join(OUT, 'detection.png'))
 
 
+def auc_heatmap():
+    res = json.load(open(os.path.join(ROOT, 'research', 'results.json'), encoding='utf-8'))['phase1']
+    cols = ['gate_verdict', 'edge_precision', 'edge_recall', 'presence_min', 'presence_v2', 'colour_worst_p95',
+            'colour_v1_median', 'colour_v2_drift', 'dreamsim', 'cer_primary_worst']
+    exp = res['expected']
+    groups = [('Debería fallar: cuanto más cerca de 1, mejor', [p for p in res['auc'] if exp[p] == 'fail']),
+              ('Borde', [p for p in res['auc'] if exp[p] == 'border']),
+              ('No debería fallar: 0,5 o menos es lo correcto; más alto = falsa alarma', [p for p in res['auc'] if exp[p] == 'pass'])]
+    L, CW, RH, TOP, GAP = 230, 118, 42, 150, 44
+    n_rows = sum(len(g) for _, g in groups)
+    W, H = L + CW * len(cols) + 20, TOP + n_rows * RH + GAP * len(groups) + 70
+    im = Image.new('RGB', (W, H), SURFACE)
+    d = ImageDraw.Draw(im)
+    d.text((20, 16), 'Qué ve cada juez: AUC por rango contra las imágenes correctas', font=font(24, 'Medium'), fill=INK)
+    d.text((20, 50), 'Por imagen con falla: la parte de las imágenes correctas del mismo producto, vista y colorway '
+           '(4 luces, otro fondo, balance, JPEG)', font=font(16), fill=MUTED)
+    d.text((20, 72), 'que puntúan mejor que ella. 1 = siempre peor que todas las correctas · 0,5 = azar', font=font(16), fill=MUTED)
+    for j, c in enumerate(cols):
+        words, line, lines = res['labels'][c].split(' '), '', []
+        for w in words:
+            if len(line + ' ' + w) > 12 and line:
+                lines.append(line)
+                line = w
+            else:
+                line = (line + ' ' + w).strip()
+        lines.append(line)
+        for k, t in enumerate(lines[-2:]):
+            d.text((L + j * CW + CW / 2, TOP - 40 + k * 19), t, font=font(14, 'Medium'), fill=INK, anchor='mm')
+    y = TOP
+    for title, ps in groups:
+        if not ps:
+            continue
+        y += 10
+        d.text((20, y + 4), title, font=font(15, 'Medium'), fill=MUTED)
+        y += GAP - 10
+        for p in ps:
+            d.text((20, y + RH / 2), res['names'][p], font=font(16), fill=INK, anchor='lm')
+            for j, c in enumerate(cols):
+                cell = res['auc'][p].get(c)
+                x0, y0 = L + j * CW + 2, y + 2
+                if not cell:
+                    d.rectangle((x0, y0, x0 + CW - 4, y0 + RH - 4), fill=SURFACE, outline=(225, 224, 220))
+                    d.text((x0 + CW / 2 - 2, y0 + RH / 2 - 2), '—', font=font(15), fill=MUTED, anchor='mm')
+                    continue
+                v = cell['auc']
+                k = 0 if v <= 0.5 else min(int(round((v - 0.5) / 0.5 * (len(BLUES) - 1))), len(BLUES) - 1)
+                d.rounded_rectangle((x0, y0, x0 + CW - 4, y0 + RH - 4), 4, fill=hexrgb(BLUES[k]))
+                d.text((x0 + CW / 2 - 2, y0 + RH / 2 - 2), f'{v:.2f}'.replace('.', ','), font=font(16, 'Medium'),
+                       fill=(255, 255, 255) if k >= 4 else INK, anchor='mm')
+            y += RH
+    lx, ly = L, H - 44
+    d.text((20, ly + 4), 'AUC', font=font(15), fill=MUTED)
+    for k, h in enumerate(BLUES):
+        d.rounded_rectangle((lx + k * 44, ly, lx + k * 44 + 40, ly + 22), 3, fill=hexrgb(h))
+    d.text((lx, ly + 26), '≤ 0,5', font=font(13), fill=MUTED)
+    d.text((lx + len(BLUES) * 44 - 30, ly + 26), '1,0', font=font(13), fill=MUTED)
+    im.save(os.path.join(OUT, 'auc.png'))
+
+
 if __name__ == '__main__':
     os.makedirs(OUT, exist_ok=True)
     references()
     variation()
     perturbations()
     detection()
+    auc_heatmap()
     print('figures in', OUT)

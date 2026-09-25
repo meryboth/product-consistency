@@ -1,6 +1,6 @@
 # Cómo mantener un producto consistente en un workflow de diseño generativo
 
-> Informe de investigación · 25 de septiembre de 2026 · Estado: **fases 0 y 1 terminadas** (productos, línea base de variación real y primera prueba de métricas con fallas conocidas). Todavía no hay imágenes generadas por IA ni etiquetas humanas.
+> Informe de investigación · 25 de septiembre de 2026 · Estado: **fases 0 y 1 terminadas** (productos, línea base de variación real y selección de métricas con fallas conocidas). Todavía no hay imágenes generadas por IA ni etiquetas humanas.
 > Este archivo se genera: `research/INFORME.template.md` + `research/results.json` → `research/INFORME.md` (con `research/scripts/render_report.py`). Ningún número está escrito a mano.
 > Las fuentes, con links verificados, están en [`LITERATURE.md`](LITERATURE.md). Las condiciones y métricas, en [`PROTOCOL.md`](PROTOCOL.md).
 
@@ -11,7 +11,7 @@
 | Fase | Qué es | Estado |
 |---|---|---|
 | 0 | Portar el pipeline de From CAD to Shelf, construir VELA, pases, línea base de variación real | Terminada |
-| 1 | Batería de métricas por región y perturbaciones con falla conocida | Primera versión (v0) medida. Faltan ajustes (abajo) |
+| 1 | Batería de métricas por región y perturbaciones con falla conocida | Terminada: batería elegida para la fase 2 |
 | 2 | Generar ≈ 180 imágenes con SDXL local (fallas naturales) | Pendiente |
 | 3 | Etiquetado humano, calibración con LUMEN, gate v1 congelado, evaluación con FIELD 16 + VELA | Pendiente |
 | 4 | Estudio B en nano-banana-2 (pago, con aprobación) | Pendiente |
@@ -50,49 +50,98 @@ Los tres son inventados y se construyen en código, así la geometría es exacta
 - **Fallas:** parte inventada, parte faltante, texto borrado, typo en la pantalla de VELA, warp y corrimiento de color.
 - **Cambios legítimos:** otro fondo, otro balance de blancos y compresión JPEG.
 
-Cada imagen se midió con el gate actual y con la batería por región v0 (`metrics/battery.py`).
+Cada imagen, junto con las 48 de variación de luz, se midió con el gate actual y con los candidatos de la batería (`metrics/battery.py`):
+
+| Candidato | Qué mide | Lado |
+|---|---|---|
+| Precisión de bordes | Bordes de la foto que no existen en el render (partes, grillas o letras inventadas) | Lo que sobra |
+| Recall de bordes | Bordes del render que faltan en la foto | Lo que falta |
+| Presencia v1 | Por pieza (un botón, una tecla): parte de sus píxeles que se parecen más a la pieza que a su entorno, después de sacar el tinte de la luz | Lo que falta |
+| Presencia v2 | Lo mismo, pero con el contraste relativo pieza/entorno | Lo que falta |
+| Color p95 (v0) | Tono y croma por píxel contra el spec, percentil 95 | Color |
+| Color v1 mediana | Tono y croma contra el render, después de sacar el tinte de la luz usando el resto del producto | Color |
+| Color v2 | Cociente de color entre la parte y el resto del producto, foto contra render | Color |
+| DINOv2 / DreamSim | Identidad global del recorte del producto | Global |
+| CER principal | Error de caracteres del OCR en el texto grande (solo VELA) | Texto |
 
 ![Ejemplos de perturbaciones: la columna "none" es la referencia](img/perturbations.jpg)
 
-**Cómo se cuenta una detección, sin elegir umbrales a ojo.** Para cada producto, vista y colorway, las cuatro luces de la fase 0 dan la **envolvente** de cada métrica: el peor valor que alcanza el producto correcto cuando solo cambia la luz. Una perturbación cuenta como detectada si queda fuera de esa envolvente, del lado malo. El gate actual se cuenta por su veredicto (todo lo que no es *publish*).
+**Cómo se lee, sin elegir umbrales a ojo.** Cada imagen con falla se compara contra las imágenes correctas del mismo producto, vista y colorway: las 4 luces, otro fondo, balance de blancos y JPEG. Se cuenta qué parte de esas imágenes correctas puntúa mejor que la imagen con falla. El promedio es un **AUC por rango**:
+- **1** significa que la falla siempre queda peor que todas las correctas: la métrica la separa.
+- **0,5** es azar: la métrica no la ve.
 
-![Qué ve cada juez](img/detection.png)
+En las filas de cambios legítimos, lo correcto es 0,5 o menos, y un valor alto es una falsa alarma.
 
-| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Color p95 | DreamSim | CER (texto) |
-|---|---|---|---|---|---|---|---|
-| Parte inventada | sí | 4/12 | 11/12 | 0/12 | 1/12 | 0/12 | 0/4 |
-| Parte faltante | sí | 4/12 | 2/12 | 2/12 | 6/12 | 3/12 | 0/4 |
-| Texto borrado | sí | 4/12 | 7/12 | 2/12 | 0/12 | 0/12 | 4/4 |
-| Typo ("Messagas") | sí | 0/2 | 2/2 | 1/2 | 0/2 | 0/2 | 2/2 |
-| Warp 10 % | sí | 6/12 | 12/12 | 12/12 | 8/12 | 4/12 | 0/4 |
-| Warp 25 % | sí | 7/12 | 12/12 | 12/12 | 8/12 | 9/12 | 0/4 |
-| Color +10 | sí | 11/12 | 1/12 | 0/12 | 2/12 | 3/12 | 0/4 |
-| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 1/12 | 0/4 |
-| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |
-| Otro fondo | no | 4/12 | 2/12 | 0/12 | 0/12 | 0/12 | 0/4 |
-| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 7/12 | 4/12 | 0/4 |
-| JPEG calidad 35 | no | 4/12 | 1/12 | 2/12 | 7/12 | 1/12 | 3/4 |
+![Qué ve cada juez: AUC por rango](img/auc.png)
 
-> n = 12 por celda (3 productos × 2 vistas × 2 colorways). El typo solo existe en VELA de frente (n = 2), y el CER solo se mide en VELA (n = 4). Datos: filas `known-*` de `research/runs.jsonl`. Hardware: RTX 2060 6 GB.
+<details><summary>La misma tabla en texto</summary>
+
+| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Recall de bordes | Presencia v1 | Presencia v2 | Color p95 | Color v1 mediana | Color v2 (contraste) | DreamSim | CER principal |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| Parte inventada | sí | 0.41 | 0.93 | 0.33 | 0.55 | 0.17 | 0.38 | 0.25 | 0.27 | 0.35 | 0.50 |
+| Parte faltante | sí | 0.41 | 0.41 | 0.69 | 0.79 | 0.80 | 0.66 | 0.66 | 0.66 | 0.54 | 0.50 |
+| Texto borrado | sí | 0.41 | 0.82 | 0.71 | 0.49 | 0.51 | 0.38 | 0.24 | 0.29 | 0.41 | 0.75 |
+| Typo ("Messagas") | sí | 0.44 | 1.00 | 0.81 | 0.50 | 0.12 | 0.22 | 0.12 | 0.12 | 0.25 | 1.00 |
+| Warp 10 % | sí | 0.49 | 1.00 | 1.00 | 0.97 | 0.95 | 0.73 | 0.66 | 0.75 | 0.64 | 0.50 |
+| Warp 25 % | sí | 0.54 | 1.00 | 1.00 | 0.97 | 0.95 | 0.74 | 0.73 | 0.92 | 0.91 | 0.50 |
+| Color +10 | sí | 0.70 | 0.31 | 0.31 | 0.44 | 0.70 | 0.52 | 0.91 | 0.76 | 0.64 | 0.50 |
+| Color +5 | borde | 0.41 | 0.33 | 0.34 | 0.38 | 0.55 | 0.38 | 0.76 | 0.60 | 0.44 | 0.50 |
+| Color +2 | no | 0.40 | 0.29 | 0.34 | 0.43 | 0.44 | 0.32 | 0.48 | 0.39 | 0.29 | 0.50 |
+| Otro fondo | no | 0.40 | 0.47 | 0.34 | 0.52 | 0.08 | 0.36 | 0.09 | 0.07 | 0.07 | 0.50 |
+| Balance de blancos | no | 0.78 | 0.39 | 0.27 | 0.48 | 0.30 | 0.82 | 0.28 | 0.37 | 0.79 | 0.50 |
+| JPEG calidad 35 | no | 0.40 | 0.69 | 0.53 | 0.46 | 0.56 | 0.73 | 0.68 | 0.63 | 0.55 | 0.50 |
+
+</details>
+
+> n = 12 imágenes por fila (3 productos × 2 vistas × 2 colorways), cada una contra 6 o 7 imágenes correctas. El typo solo existe en VELA de frente (n = 2), y el CER solo se mide en VELA (n = 4; en las demás filas da 0,50 porque el texto no cambia). Datos: filas `known-v1-*` de `research/runs.jsonl`. Hardware: RTX 2060 6 GB.
 
 **Lectura.**
-- **El gate actual rechaza por colorway, no por falla.** En parte inventada, parte faltante, otro fondo, JPEG y color +2, fuera del naranja rechazó 0 de 40 imágenes, y en el naranja 20 de 20. Sobre todas las imágenes correctas (variación y cambios legítimos) rechazó 53 de 108. Lo único que detecta de verdad es el corrimiento fuerte de color (11/12).
-- **La precisión de bordes es la métrica nueva más fuerte.** Detecta la parte inventada (11/12), el typo (2/2) y todos los warps, con pocas falsas alarmas en los cambios legítimos (otro fondo 2/12, JPEG 1/12). Es lo que el gate actual no veía.
-- **El CER detecta el texto roto** (texto borrado 4/4, typo 2/2), pero también marca la compresión JPEG (3/4). La luz no cambia la lectura, así que la envolvente queda demasiado estrecha: hace falta un margen mínimo.
-- **El color por parte todavía no sirve.** La luz mueve el color más que un corrimiento de 10, así que la falla queda dentro de la envolvente (color +10: 2/12), y el balance de blancos da falsas alarmas (7/12). Hay que normalizar la luz antes de medir el color.
-- **La parte faltante es la falla más difícil.** Borrar un botón chico casi no cambia los bordes. Lo que mejor la ve es el color por parte (6/12). Falta una métrica de presencia por parte.
-- **DINOv2 y DreamSim solo ven cambios grandes**, como los warps. En defectos chicos no alcanzan, igual que decía la literatura.
+- **El gate actual rechaza por colorway, no por falla.** En parte inventada, parte faltante, otro fondo, JPEG y color +2, fuera del naranja rechazó 0 de 40 imágenes, y en el naranja 20 de 20. Sobre todas las imágenes correctas rechazó 53 de 108. Su mejor fila es color +10 (AUC 0.703).
+- **La precisión de bordes ve lo inventado.** Parte inventada 0.932, typo 1.0, texto borrado 0.818, warp 10 % 1.0. Es justo lo que el gate actual no veía. No ve la parte faltante (0.411), y el JPEG le da una falsa alarma moderada (0.69).
+- **La presencia v1 cubre el otro lado: lo que falta.** Parte faltante 0.792. En LUMEN y FIELD 16, la presencia de la pieza borrada dio 0 en 8 de 8 imágenes. En VELA no llega, porque sus teclas tienen casi el mismo tono que el cuerpo y la métrica no las juzga (queda como límite).
+- **Sacar el tinte de la luz arregla el color.** Color v1 mediana: +10 0.906, +5 0.76, y ya no da falsa alarma con el balance de blancos (0.28, contra 0.821 del color p95 v0).
+- **El CER principal ve el texto roto sin marcar el JPEG.** Typo 1.0, texto borrado 0.75 (en la trasera, el texto borrado es la serigrafía chica, que por diseño no decide), JPEG 0.5.
+- **DINOv2 y DreamSim solo ven los warps grandes** (DreamSim warp 25 %: 0.906), y DreamSim da falsa alarma con el balance de blancos (0.786). No suman nada que no vean los bordes.
+- **Los candidatos v2 (contraste relativo) no mejoran a los v1.** Presencia v2 empata en la parte faltante (0.797) y color v2 queda por debajo del v1 en color +10 (0.76).
+
+**Qué pasa a la fase 2.** La batería queda en:
+- precisión y recall de bordes (lo inventado y lo deformado);
+- presencia v1 (lo que falta);
+- color v1 mediana (el color, con la luz descontada);
+- CER principal (el texto).
+
+Quedan afuera DINOv2, DreamSim, color p95 v0 y los candidatos v2. **Esta elección se hizo con perturbaciones sintéticas sobre renders.** La prueba que cuenta es el set de evaluación con generaciones reales y etiquetas humanas (fase 3), donde se congelan los umbrales y se compara contra el gate actual.
 
 **Límites.**
-- Las perturbaciones son sintéticas, y cada celda tiene n = 12 o menos. Esto sirve para elegir y corregir métricas, no para declarar ganadores: eso sale del set de evaluación etiquetado (fase 3).
-- La envolvente sale de solo 4 luces.
-- El typo corre unos 2 píxeles las dos letras nuevas, así que también mueve los bordes, no solo el texto.
+- Las perturbaciones son sintéticas, y cada fila tiene 12 imágenes o menos.
+- Las luces de la variación son HDRI fuertes, que mueven el color y el contraste más de lo que movería una escena de catálogo.
+- El typo corre unos 2 píxeles las dos letras nuevas, así que también mueve los bordes.
+- La presencia no juzga las piezas que tienen el mismo tono que su entorno, como las teclas de VELA.
 
-**Próximo paso (local, sin costo):**
-1. Normalizar el balance de blancos antes de medir el color.
-2. Agregar una métrica de presencia por parte.
-3. Dar al CER un margen mínimo.
-4. Volver a medir, y pasar a la fase 2.
+<details><summary>El criterio estricto (envolvente de luz), que se usó en la primera versión</summary>
+
+Una falla cuenta como detectada si queda peor que el **peor** valor del producto correcto bajo las 4 luces. Es más duro que el AUC: una sola luz extrema (la *interior*) puede descalificar a una métrica. Por ejemplo, la presencia v1 detecta así 7 de 12 partes faltantes, aunque en LUMEN y FIELD 16 dé 0 en todas.
+
+![Detección con la envolvente de luz](img/detection.png)
+
+| Perturbación | ¿Debería fallar? | Gate actual (veredicto) | Precisión de bordes | Presencia v1 | Presencia v2 | Color p95 | Color v1 mediana | Color v2 (contraste) | DreamSim | CER principal |
+|---|---|---|---|---|---|---|---|---|---|---|
+| Parte inventada | sí | 4/12 | 11/12 | 1/12 | 0/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/4 |
+| Parte faltante | sí | 4/12 | 2/12 | 7/12 | 6/12 | 6/12 | 6/12 | 6/12 | 3/12 | 0/4 |
+| Texto borrado | sí | 4/12 | 7/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 2/4 |
+| Typo ("Messagas") | sí | 0/2 | 2/2 | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 | 0/2 | 2/2 |
+| Warp 10 % | sí | 6/12 | 12/12 | 10/12 | 8/12 | 8/12 | 5/12 | 4/12 | 4/12 | 0/4 |
+| Warp 25 % | sí | 7/12 | 12/12 | 10/12 | 8/12 | 8/12 | 6/12 | 8/12 | 9/12 | 0/4 |
+| Color +10 | sí | 11/12 | 1/12 | 0/12 | 1/12 | 2/12 | 8/12 | 2/12 | 3/12 | 0/4 |
+| Color +5 | borde | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 3/12 | 0/12 | 1/12 | 0/4 |
+| Color +2 | no | 4/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/4 |
+| Otro fondo | no | 4/12 | 2/12 | 1/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/12 | 0/4 |
+| Balance de blancos | no | 12/12 | 1/12 | 0/12 | 0/12 | 7/12 | 0/12 | 0/12 | 4/12 | 0/4 |
+| JPEG calidad 35 | no | 4/12 | 1/12 | 1/12 | 0/12 | 7/12 | 3/12 | 3/12 | 1/12 | 0/4 |
+
+</details>
+
+**Próximo paso: fase 2 (local, sin costo).** Generar con el grafo SDXL de From CAD to Shelf unas 180 imágenes: 3 productos × 2 vistas × fuerza de ControlNet 1,0 / 0,75 / 0,5 × con y sin guardas × 5 semillas. Son unas 10 horas de GPU. Esas imágenes traen las fallas naturales que después etiquetás a ciegas.
 
 ---
 
