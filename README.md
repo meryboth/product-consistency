@@ -4,7 +4,7 @@ Research on keeping a product the same across a generative design workflow, and 
 
 Follows [From CAD to Shelf](https://github.com/meryboth/from-cad-to-shelf): its pipeline, its gate and its two products are the starting point and the baseline.
 
-> Status: phase 0 (setup). No experiment runs yet.
+> Status: phase 0 done (products, passes, real-variation baseline). Study A starts next.
 
 ## Research
 
@@ -38,4 +38,5 @@ py tools/variation.py vela          # the same product under four studio lights:
 |---|---|
 | `pipeline/` | Ported unchanged from From CAD to Shelf at `64caef5` (see `pipeline/PORTED.md`). `qa.check` is the baseline gate |
 | `tools/variation.py` | Renders each product under four lights, for the real-variation baseline |
+| `tools/judge_variation.py` | Runs the baseline gate over those renders and logs every verdict to `research/runs.jsonl` |
 | `research/scripts/` | `summarize_runs.py` and `render_report.py`: every number in the report comes from `results.json` |
